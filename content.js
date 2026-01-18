@@ -54,7 +54,7 @@ window.portfolioData = {
         "agenda de contactos basada en el modelo .csv de google contacts capaz de importar, exportar contactos de google contacts. multi idomas y puede generar QR para guardar contactos.",
       tech: ["Java", "SQLite", "JDBC"],
       repoUrl: "https://github.com/angelvalecillos/agenda-de-contactos",
-      demoUrl: "",
+      demoUrl: "assets/Manual-agenda.pdf",
       imageUrl: "assets/agenda.png",
       imageLayout: "scroll" // ← activa el contenedor con scroll
     },
@@ -65,7 +65,7 @@ window.portfolioData = {
         "es una herramienta en Java que simplifica la transición del mundo físico al digital. Permite transformar URLs, contactos de WhatsApp y enlaces a grupos en códigos QR de alta calidad, listos para imprimir o compartir digitalmente de forma inmediata.",
       tech: ["Java", "Maven"],
       repoUrl: "https://github.com/angelvalecillos/Generador-QR",
-      demoUrl: "",
+      demoUrl: "assets/Manual-qr.pdf",
       imageUrl: "assets/qr.png",
       imageLayout: "scroll"
     },
@@ -75,7 +75,7 @@ window.portfolioData = {
       description: "Java Executable Builder convierte archivos .jar en ejecutables de Windows (** .exe**). Crea aplicaciones portátiles o instaladores profesionales de forma rápida, asegurando un despliegue nativo y eficiente.",
       tech: ["Java", "cmd", "Windows PowerShell"],
       repoUrl: "https://github.com/angelvalecillos/compilador-JAVA",
-      demoUrl: "",
+      demoUrl: "assets/Manual-compilador.pdf",
       imageUrl: "assets/compilador JAVA.png",
       imageLayout: "scroll"
     }

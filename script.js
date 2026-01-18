@@ -144,7 +144,7 @@
     const actions = `
       <div class="card-actions">
         ${p.repoUrl ? `<a class="btn-outline" href="${p.repoUrl}" target="_blank" rel="noopener">Código</a>` : ""}
-        ${p.demoUrl ? `<a class="btn" href="${p.demoUrl}" target="_blank" rel="noopener">Demo</a>` : ""}
+        ${p.demoUrl ? `<a class="btn" href="${p.demoUrl}" target="_blank" rel="noopener">Manual.pdf</a>` : ""}
       </div>
     `;
 
