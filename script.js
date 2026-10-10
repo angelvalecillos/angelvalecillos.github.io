@@ -19,7 +19,6 @@
   d.getElementById("mainSkill").textContent = data.mainSkill;
   d.getElementById("location").textContent = data.location;
   d.getElementById("footerName").textContent = data.name;
-  document.getElementById("experience-title").textContent = "Proyecto no terminado";
 
   const photo = d.getElementById("photo");
   if (data.photoUrl) photo.src = data.photoUrl;
@@ -56,16 +55,17 @@
     techBadges.appendChild(span);
   });
 
-  // Experiencia: tarjetas con tags (tech) y acciones (Código/Demo)
+  // Experiencia: tarjetas con tags (tech), estado y acciones (Código/Demo)
   const expList = d.getElementById("experienceList");
   data.experience.forEach((e) => {
     const card = d.createElement("div");
     card.className = "card";
 
     const tags = (e.tech || []).map((t) => `<span class="tag">${t}</span>`).join("");
+    const status = e.status ? `<span class="status">${e.status}</span>` : "";
 
     card.innerHTML = `
-      <h3>${e.title}</h3>
+      <h3>${e.title} ${status}</h3>
       <p class="subtitle">${e.subtitle}</p>
       <p class="description">${e.description}</p>
       ${tags ? `<div class="tag-row">${tags}</div>` : ""}
@@ -133,6 +133,7 @@
     card.className = "card";
 
     const tags = (p.tech || []).map((t) => `<span class="tag">${t}</span>`).join("");
+    const status = p.status ? `<span class="status">${p.status}</span>` : "";
 
     const media =
       p.imageUrl
@@ -149,7 +150,7 @@
     `;
 
     card.innerHTML = `
-      <h3>${p.title}</h3>
+      <h3>${p.title} ${status}</h3>
       <p class="subtitle">${p.subtitle}</p>
       <p class="description">${p.description}</p>
       <div class="tag-row">${tags}</div>
@@ -159,6 +160,19 @@
 
     projList.appendChild(card);
   });
+
+  // Render listas extra incluyendo contribuciones/blog si existen
+  const renderExtra = (id, arr, renderItem) => {
+    const ul = d.getElementById(id);
+    if (!ul || !arr) return;
+    ul.innerHTML = arr
+      .map((item) =>
+        typeof item === "string"
+          ? `<li>${item}</li>`
+          : `<li><a href="${item.url}" target="_blank" rel="noopener">${item.label}</a></li>`
+      )
+      .join("");
+  };
 
   // Formación
   const eduList = d.getElementById("educationList");
@@ -195,4 +209,6 @@
   fill("learning", data.learning);
   fill("certifications", data.certifications);
   fill("hobbies", data.hobbies);
+  renderExtra("contributions", data.contributions);
+  renderExtra("blog", data.blog);
 })();
