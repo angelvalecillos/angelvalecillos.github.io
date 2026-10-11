@@ -136,7 +136,9 @@ window.portfolioData = {
       status: "Terminado (básico)",
       description:
         "Calculadora de escritorio con historial en .txt. Ejercicio junior de 4 clases; sin Maven ni tests.",
-      tech: ["Java", "Swing"]
+      tech: ["Java", "Swing"],
+      imageUrl: "assets/calculadora.png",
+      imageLayout: "scroll"
     }
   ],
 
