@@ -141,6 +141,6 @@ window.portfolioData = {
 
   languages: ["Español (nativo)", "Inglés (B2)"],
   learning: ["IA", "OpenCode", "Firebase", "Despliegue web", "Cloudflare"],
-  certifications: ["OPERACIONES AUXILIARES DE MONTAJE Y MANTENIMIENTO DE SISTEMAS MICROINFORMÁTICOS IFCT0108 (370 horas)", "ECI Diploma (ver assets/eciDiploma.pdf)"],
+  certifications: ["OPERACIONES AUXILIARES DE MONTAJE Y MANTENIMIENTO DE SISTEMAS MICROINFORMÁTICOS IFCT0108 (370 horas)", "ECI Diploma (ver assets/eciDiploma.pdf)", "Curso de Iniciación al Desarrollo con IA (MourDev)"],
   hobbies: ["Lectura técnica","Ciclismo"]
 };
