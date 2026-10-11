@@ -140,7 +140,7 @@ window.portfolioData = {
   ],
 
   languages: ["Español (nativo)", "Inglés (B2)"],
-  learning: ["IA", "OpenCode", "Firebase / despliegue web"],
+  learning: ["IA", "OpenCode", "Firebase / despliegue web", "Cloudflare"],
   certifications: ["OPERACIONES AUXILIARES DE MONTAJE Y MANTENIMIENTO DE SISTEMAS MICROINFORMÁTICOS IFCT0108 (370 horas)", "ECI Diploma (ver assets/eciDiploma.pdf)"],
   hobbies: ["Lectura técnica","Ciclismo"]
 };
