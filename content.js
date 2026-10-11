@@ -12,7 +12,7 @@ window.portfolioData = {
   website: "",
 
   about:
-    "Programador Java Junior con proyectos terminados en escritorio (SQLite, PostgreSQL) y desarrollo web front-end (HTML/CSS/JS + Firebase). Me enfoco en código claro, pruebas básicas y documentación breve.",
+    "Programador Java Junior con proyectos terminados en escritorio (SQLite, PostgreSQL) y desarrollo web front-end (HTML/CSS/JS + Firebase), incluyendo una landing de cliente real en producción. Me enfoco en código claro, pruebas básicas y documentación breve. NO SOY VIBE CODING: escribo y entiendo cada línea de mi código.",
 
   tech: [
     { label: "Java", category: "Backend/frontend" },
@@ -114,9 +114,10 @@ window.portfolioData = {
       subtitle: "Landing ES/EN móvil",
       status: "Terminado",
       description:
-        "Landing bilingüe para notario móvil con acordeón de servicios, tarifas, botón WhatsApp y versión cliente/móvil. Cliente real.",
+        "Landing bilingüe para notario móvil con acordeón de servicios, tarifas, botón WhatsApp y versión cliente/móvil. Cliente real, EN PRODUCCIÓN con Cloudflare.",
       tech: ["HTML", "CSS", "JavaScript"],
       repoUrl: "https://github.com/angelvalecillos/notario-yare",
+      demoUrl: "https://yareimanotary.com/",
       repoUrl: "",
       demoUrl: "",
       imageUrl: "assets/notario.png",
@@ -143,7 +144,7 @@ window.portfolioData = {
   ],
 
   languages: ["Español (nativo)", "Inglés (B2)"],
-  learning: ["IA", "Firebase / despliegue web"],
+  learning: ["IA", "OpenCode", "Firebase / despliegue web"],
   certifications: ["OPERACIONES AUXILIARES DE MONTAJE Y MANTENIMIENTO DE SISTEMAS MICROINFORMÁTICOS IFCT0108 (370 horas)", "ECI Diploma (ver assets/eciDiploma.pdf)"],
   hobbies: ["Lectura técnica","Ciclismo"]
 };
