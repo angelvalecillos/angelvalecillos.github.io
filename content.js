@@ -120,6 +120,17 @@ window.portfolioData = {
       imageLayout: "scroll"
     },
     {
+      title: "Zorro y la Gallina",
+      subtitle: "Juego de mesa HTML5",
+      status: "Terminado",
+      description:
+        "Juego de mesa venezolano (2 zorros vs 20 gallinas) en HTML5 puro sin dependencias. 2 jugadores o contra IA, con sonido, soplo y reglas en pantalla. Funciona en PC y móvil.",
+      tech: ["HTML", "CSS", "JavaScript"],
+      repoUrl: "https://github.com/angelvalecillos/zorro-y-la-gallina",
+      imageUrl: "assets/zorro.jpg",
+      imageLayout: "scroll"
+    },
+    {
       title: "Calculadora Básica",
       subtitle: "Java + Swing",
       status: "Terminado (básico)",
