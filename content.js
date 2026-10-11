@@ -104,8 +104,6 @@ window.portfolioData = {
         "Landing responsive para fotógrafa, con vista-cliente autocontenida verificada. Pendiente fotos y textos finales del cliente.",
       tech: ["HTML", "CSS", "JavaScript"],
       repoUrl: "https://github.com/angelvalecillos/aleen-fotografia",
-      repoUrl: "",
-      demoUrl: "",
       imageUrl: "assets/aleen.jpg",
       imageLayout: "scroll"
     },
@@ -118,8 +116,6 @@ window.portfolioData = {
       tech: ["HTML", "CSS", "JavaScript"],
       repoUrl: "https://github.com/angelvalecillos/notario-yare",
       demoUrl: "https://yareimanotary.com/",
-      repoUrl: "",
-      demoUrl: "",
       imageUrl: "assets/notario.png",
       imageLayout: "scroll"
     },
