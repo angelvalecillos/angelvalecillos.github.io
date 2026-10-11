@@ -14,6 +14,15 @@
 
   const data = window.portfolioData;
 
+  // Color de la píldora según estado (codifica información, no decora)
+  const statusClass = (s) => {
+    const t = (s || "").toLowerCase();
+    if (t.includes("desarrollo")) return "status-wip";
+    if (t.includes("avanzado")) return "status-adv";
+    if (t.includes("terminado")) return "status-ok";
+    return "status-info";
+  };
+
   // Header
   d.getElementById("name").textContent = data.name;
   d.getElementById("mainSkill").textContent = data.mainSkill;
@@ -62,7 +71,7 @@
     card.className = "card";
 
     const tags = (e.tech || []).map((t) => `<span class="tag">${t}</span>`).join("");
-    const status = e.status ? `<span class="status">${e.status}</span>` : "";
+    const status = e.status ? `<span class="status ${statusClass(e.status)}">${e.status}</span>` : "";
 
     card.innerHTML = `
       <h3>${e.title} ${status}</h3>
@@ -133,7 +142,7 @@
     card.className = "card";
 
     const tags = (p.tech || []).map((t) => `<span class="tag">${t}</span>`).join("");
-    const status = p.status ? `<span class="status">${p.status}</span>` : "";
+    const status = p.status ? `<span class="status ${statusClass(p.status)}">${p.status}</span>` : "";
 
     const media =
       p.imageUrl
