@@ -72,11 +72,18 @@ window.portfolioData = {
       subtitle: "Landing HTML/CSS/JS — En desarrollo",
       status: "En desarrollo",
       description:
-        "Landing responsive para fotógrafa, con vista-cliente autocontenida verificada. Pendiente fotos y textos finales del cliente.",
+        "Landing bilingüe ES/EN para fotógrafa (cliente real), publicada en Cloudflare Pages con panel privado propio: sube, borra y reordena las fotos y edita los textos sin tocar código. Pendiente: ciudad, precios y condiciones de la clienta.",
       years: "2026 · cliente real (fotógrafa)",
-      tech: ["HTML", "CSS", "JavaScript"],
+      tech: ["HTML", "CSS", "JavaScript", "Cloudflare Pages"],
       repoUrl: "https://github.com/angelvalecillos/aleen-fotografia",
-      images: ["assets/aleen.jpg"]
+      demoUrl: "https://eyeleanphotography.com",
+      // Capturas nuevas (2026-10-18): banner de escritorio, vista móvil
+      // (en inglés, para que se vea el conmutador ES/EN) y página completa.
+      images: [
+        "assets/aleen-pc.jpg",
+        "assets/aleen-movil.jpg",
+        "assets/aleen-completa.jpg"
+      ]
     }
   ],
 

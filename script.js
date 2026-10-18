@@ -151,7 +151,8 @@
         demoLink.href = e.demoUrl;
         demoLink.target = "_blank";
         demoLink.rel = "noopener";
-        demoLink.textContent = "Demo";
+        // Misma etiqueta que en Proyectos: si es un PDF es el manual, si no, el sitio.
+        demoLink.textContent = e.demoUrl.toLowerCase().endsWith(".pdf") ? "Manual.pdf" : "Ver sitio";
         actions.appendChild(demoLink);
       }
 
