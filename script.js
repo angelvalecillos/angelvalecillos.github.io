@@ -23,6 +23,13 @@
     return "status-info";
   };
 
+  // Etiqueta del botón naranja de cada tarjeta: `demoLabel` la pone a medida
+  // (el Zorro usa "Jugar" porque su enlace es itch.io); si no, un .pdf es el
+  // manual y cualquier otra cosa es "Ver sitio".
+  const etiquetaDemo = (item) =>
+    item.demoLabel ||
+    (item.demoUrl && item.demoUrl.toLowerCase().endsWith(".pdf") ? "Manual.pdf" : "Ver sitio");
+
   // Header
   d.getElementById("name").textContent = data.name;
   d.getElementById("mainSkill").textContent = data.mainSkill;
@@ -151,8 +158,7 @@
         demoLink.href = e.demoUrl;
         demoLink.target = "_blank";
         demoLink.rel = "noopener";
-        // Misma etiqueta que en Proyectos: si es un PDF es el manual, si no, el sitio.
-        demoLink.textContent = e.demoUrl.toLowerCase().endsWith(".pdf") ? "Manual.pdf" : "Ver sitio";
+        demoLink.textContent = etiquetaDemo(e);
         actions.appendChild(demoLink);
       }
 
@@ -178,7 +184,7 @@
             : `<img class="project-media" alt="Imagen del proyecto ${p.title}" src="${p.imageUrl}" />`)
         : "";
 
-    const demoLabel = p.demoUrl && p.demoUrl.toLowerCase().endsWith(".pdf") ? "Manual.pdf" : "Ver sitio";
+    const demoLabel = etiquetaDemo(p);
     const actions = `
       <div class="card-actions">
         ${p.repoUrl ? `<a class="btn-outline" href="${p.repoUrl}" target="_blank" rel="noopener">Código</a>` : ""}
