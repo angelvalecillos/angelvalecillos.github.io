@@ -6,6 +6,12 @@
   --primary: #6b74ff;
   --primary-weak: rgba(107, 116, 255, 0.15);
   --border: #222936;
+  /* Fondo Matrix */
+  --matrix-char: #63e08f;   /* verde claro: la lluvia normal */
+  --matrix-hot: #3dffa1;    /* verde brillante: la que resalta (esporádica) */
+  --matrix-head: #d9ffe9;
+  --matrix-alpha: 0.45;
+  --veil: rgba(15, 18, 24, 0.72);
 }
 :root.light {
   --bg: #f7f8fa;
@@ -15,9 +21,17 @@
   --primary: #3a47f3;
   --primary-weak: rgba(58, 71, 243, 0.15);
   --border: #e6e8ef;
+  /* Fondo Matrix en claro: verde oscuro para que se note sobre el blanco */
+  --matrix-char: #0b6b3a;
+  --matrix-hot: #06a04c;
+  --matrix-head: #04331b;
+  --matrix-alpha: 0.3;
+  --veil: rgba(247, 248, 250, 0.8);
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif; line-height: 1.6; }
+/* El fondo (--bg) se pinta en <html> para que el canvas Matrix quede por encima */
+html { background: var(--bg); }
+body { margin: 0; background: transparent; color: var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif; line-height: 1.6; }
 .container { max-width: 980px; margin: 0 auto; padding: 24px; }
 .section { margin: 28px 0; }
 .section-title { margin: 0 0 8px; font-size: 22px; font-weight: 700; }
@@ -203,17 +217,10 @@ body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter,
 /* Fila de viewports de experiencia (imágenes lado a lado) */
 .exp-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  /* auto-fit: 3 imágenes llenan la fila y 1 sola ocupa todo el ancho */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 10px;
   margin-top: 10px;
-}
-
-/* Responsivo (opcional): ajustar número de columnas */
-@media (max-width: 900px) {
-  .exp-row { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 640px) {
-  .exp-row { grid-template-columns: 1fr; }
 }
 
 /* --- Pulido visual 2026-10-11 (restyling ligero) --- */
@@ -242,7 +249,68 @@ a { color: inherit; }
 /* Avatar con aro de acento */
 .avatar { border: 2px solid var(--primary); }
 
+/* Dos fotos de perfil: la segunda aparece con un fundido sobre la primera
+   (la lógica está en script.js). Se apilan para que el cambio no mueva nada. */
+.avatar-stack {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex: 0 0 120px;
+}
+.avatar-stack .avatar { position: absolute; inset: 0; }
+.avatar-alt { opacity: 0; transition: opacity 1.2s ease; }
+.avatar-alt.visible { opacity: 1; }
+.avatar-alt.no-fade { transition: none; }
+
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
   .card:hover { transform: none; }
+}
+
+/* --- Fondo Matrix 2026-10-18 ---
+   Dos canvas fijos por detrás del contenido (no capturan clics) y un
+   "velo" en degradado que oscurece los bordes para que el texto siga
+   leyéndose bien. El contenido va en la capa 1. */
+.matrix-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+#matrix { opacity: var(--matrix-alpha); }
+#matrixCode { opacity: 0.65; }
+
+/* Velo: se pinta después de los canvas y antes del contenido */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(130% 100% at 50% 0%, transparent 25%, var(--veil) 100%);
+}
+
+/* Bloque/panel: mismo tratamiento que las tarjetas, para que el fondo
+   Matrix no "distorsione" los textos (Tecnologías y Extra) */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+.panel .badge-grid { row-gap: 10px; }
+
+.site-header,
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 640px) {
+  /* En móvil solo la lluvia (menos ruido) y un poco más tenue */
+  #matrix { opacity: calc(var(--matrix-alpha) * 0.8); }
+  #matrixCode { display: none; }
 }

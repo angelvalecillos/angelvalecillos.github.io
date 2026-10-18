@@ -6,6 +6,8 @@ window.portfolioData = {
   email: "angel.valecillos1981@gmail.com",
   cvUrl: "assets/CV.pdf",
   photoUrl: "assets/foto.jpg",
+  photoUrl2: "assets/foto2-avatar.jpg", // 2ª foto del avatar (entra con fundido)
+  photoIntervalMs: 7000,                // cada cuánto alterna (7 s)
 
   github: "https://github.com/angelvalecillos",
   linkedin: "https://www.linkedin.com/in/angel-eduardo-valecillos-ab4b5b57",
@@ -16,17 +18,23 @@ window.portfolioData = {
 
   tech: [
     { label: "Java", category: "Backend/frontend" },
+    { label: "Swing", category: "Desktop" },
     { label: "SQLite", category: "DB" },
     { label: "PostgreSQL", category: "DB" },
     { label: "JDBC", category: "Backend" },
     { label: "HikariCP", category: "Backend" },
+    { label: "jBCrypt", category: "Backend" },
     { label: "Maven", category: "Build" },
     { label: "Ant / NetBeans", category: "Build" },
     { label: "jpackage / Launch4j", category: "Deploy" },
+    { label: "GitHub Pages", category: "Deploy" },
+    { label: "Cloudflare", category: "Deploy" },
     { label: "HTML", category: "Web" },
     { label: "CSS", category: "Web" },
     { label: "JavaScript", category: "Web" },
+    { label: "Canvas HTML5", category: "Web" },
     { label: "Firebase", category: "Web" },
+    { label: "OpenCode (IA)", category: "Tools" },
     { label: "Git/GitHub", category: "Tools" }
   ],
 
@@ -48,6 +56,27 @@ window.portfolioData = {
       // Código del proyecto
       repoUrl: "https://github.com/angelvalecillos/hotels"
       // demoUrl: "https://tu-demo.com" // opcional
+    },
+    {
+      title: "Family Chat Room",
+      subtitle: "HTML/CSS/JS + Firebase — En desarrollo",
+      status: "En desarrollo",
+      description:
+        "Chat web familiar estilo MSN con login, registro y dashboard. Front completo en vanilla JS + Firebase; pendiente configurar credenciales y desplegar la demo.",
+      years: "2026 · proyecto familiar",
+      tech: ["HTML", "CSS", "JavaScript", "Firebase"],
+      repoUrl: "https://github.com/angelvalecillos/family-chat-room"
+    },
+    {
+      title: "Aleen Fotografía",
+      subtitle: "Landing HTML/CSS/JS — En desarrollo",
+      status: "En desarrollo",
+      description:
+        "Landing responsive para fotógrafa, con vista-cliente autocontenida verificada. Pendiente fotos y textos finales del cliente.",
+      years: "2026 · cliente real (fotógrafa)",
+      tech: ["HTML", "CSS", "JavaScript"],
+      repoUrl: "https://github.com/angelvalecillos/aleen-fotografia",
+      images: ["assets/aleen.jpg"]
     }
   ],
 
@@ -85,26 +114,6 @@ window.portfolioData = {
       repoUrl: "https://github.com/angelvalecillos/java-exe-builder",
       demoUrl: "assets/Manual-compilador.pdf",
       imageUrl: "assets/compilador-java.png",
-      imageLayout: "scroll"
-    },
-    {
-      title: "Family Chat Room",
-      subtitle: "HTML/CSS/JS + Firebase",
-      status: "Avanzado",
-      description:
-        "Chat web familiar estilo MSN con login, registro y dashboard. Front completo en vanilla JS + Firebase; pendiente configurar credenciales y desplegar demo.",
-      tech: ["HTML", "CSS", "JavaScript", "Firebase"],
-      repoUrl: "https://github.com/angelvalecillos/family-chat-room"
-    },
-    {
-      title: "Aleen Fotografía",
-      subtitle: "Landing HTML/CSS/JS",
-      status: "Avanzado",
-      description:
-        "Landing responsive para fotógrafa, con vista-cliente autocontenida verificada. Pendiente fotos y textos finales del cliente.",
-      tech: ["HTML", "CSS", "JavaScript"],
-      repoUrl: "https://github.com/angelvalecillos/aleen-fotografia",
-      imageUrl: "assets/aleen.jpg",
       imageLayout: "scroll"
     },
     {

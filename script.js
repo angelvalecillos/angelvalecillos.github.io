@@ -32,6 +32,31 @@
   const photo = d.getElementById("photo");
   if (data.photoUrl) photo.src = data.photoUrl;
 
+  // Segunda foto del avatar: aparece con un fundido sobre la primera cada
+  // cierto tiempo (por defecto 7 s). Si no hay segunda foto, no hace nada.
+  const photoAlt = d.getElementById("photoAlt");
+  if (photoAlt && data.photoUrl2) {
+    photoAlt.src = data.photoUrl2;
+
+    const ms = Number(data.photoIntervalMs) > 999 ? Number(data.photoIntervalMs) : 7000;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      photoAlt.classList.add("no-fade"); // sin animación si el usuario lo pide
+    }
+
+    let timer = 0;
+    const swap = () => photoAlt.classList.toggle("visible");
+    const start = () => {
+      if (!timer) timer = setInterval(swap, ms);
+    };
+    const stop = () => {
+      clearInterval(timer);
+      timer = 0;
+    };
+
+    start();
+    d.addEventListener("visibilitychange", () => (d.hidden ? stop() : start()));
+  }
+
   // Contact chips
   const contacts = d.getElementById("contacts");
   const footerContacts = d.getElementById("footerContacts");
@@ -72,13 +97,14 @@
 
     const tags = (e.tech || []).map((t) => `<span class="tag">${t}</span>`).join("");
     const status = e.status ? `<span class="status ${statusClass(e.status)}">${e.status}</span>` : "";
+    const years = e.years ? `<div class="muted">${e.years}</div>` : "";
 
     card.innerHTML = `
       <h3>${e.title} ${status}</h3>
       <p class="subtitle">${e.subtitle}</p>
       <p class="description">${e.description}</p>
       ${tags ? `<div class="tag-row">${tags}</div>` : ""}
-      <div class="muted">${e.years}</div>
+      ${years}
     `;
 
     // Imágenes (viewports verticales)
