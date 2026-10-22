@@ -1,4 +1,7 @@
 // Rellena con tu información (conciso y sincero).
+// `category`, `rank` y `summary` son para el modelo de web de contratación
+// (modelo.html): clasifican los proyectos y dan una línea corta para la
+// tarjeta. El portafolio anterior los ignora, así que no rompen nada.
 window.portfolioData = {
   name: "Angel Valecillos",
   mainSkill: "Programador Java (Junior)",
@@ -38,6 +41,51 @@ window.portfolioData = {
     { label: "Git/GitHub", category: "Tools" }
   ],
 
+  // Especialidades: lo que se ofrece, agrupado (así se monta la barra
+  // "Especialidades" del menú y la sección de servicios del modelo).
+  // `anchor` enlaza cada grupo con su filtro de proyectos.
+  services: [
+    {
+      kicker: "Web",
+      icon: "web",
+      title: "Webs para tu negocio",
+      anchor: "web",
+      description:
+        "Una web clara, en español y en inglés si hace falta, que explica lo que haces y lleva al cliente al WhatsApp o al formulario.",
+      items: ["Web de una página", "Bilingüe ES/EN", "Formulario y WhatsApp", "Adaptada a móvil"]
+    },
+    {
+      kicker: "Gestión",
+      icon: "db",
+      title: "Software de gestión",
+      anchor: "gestion",
+      description:
+        "Programas que ordenan empleados, clientes, reservas o inventario de verdad, con base de datos y usuarios con permisos.",
+      items: ["Java + PostgreSQL o SQLite", "Altas, bajas y consultas", "Informes y exportación", "Usuarios y permisos"]
+    },
+    {
+      kicker: "Escritorio",
+      icon: "app",
+      title: "Aplicaciones de escritorio",
+      anchor: "escritorio",
+      description:
+        "Herramientas internas para Windows que se entregan con instalador y manual, para que nadie dependa de ti para abrirlas.",
+      items: ["Java (Swing)", "Instalador .exe", "Firma del ejecutable", "Manual de uso"]
+    },
+    {
+      kicker: "Juegos",
+      icon: "game",
+      title: "Juegos y experiencias HTML5",
+      anchor: "juegos",
+      description:
+        "Juegos que funcionan en el navegador, en PC y en el móvil, sin instalar nada y sin dependencias externas.",
+      items: ["HTML5 + Canvas", "Contra IA o 2 jugadores", "Publicado en itch.io", "Sin dependencias"]
+    }
+  ],
+
+  // Lo que no es un servicio suelto pero también entra en un proyecto.
+  serviceExtras: ["Dominio y DNS (Cloudflare)", "Hosting y certificado SSL", "Copias de seguridad", "Cambios y mantenimiento"],
+
   experience: [
     {
       title: "Sistema Gestión Hotelera",
@@ -46,6 +94,10 @@ window.portfolioData = {
       description:
         "Aplicación en desarrollo construida en Java que se conecta a un servidor PostgreSQL y, al iniciar, verifica y crea automáticamente las tablas necesarias; actualmente gestiona empleados, estadías, procesos de check-in y check-out, y a futuro incorporará el bloqueo de habitaciones sucias o en mantenimiento, el registro y cobro de servicios de comensales, entre otras funcionalidades orientadas a optimizar la operación hotelera. Versión legacy funcional (hoteles24, Java+Swing+Ant) y rewrite moderno del backend (HotelProyect: Java 24, Maven, HikariCP, jBCrypt, GUI pendiente).",
       years: "original en 2015, recuperando código 2025-2026",
+      category: "gestion",
+      rank: 3,
+      summary:
+        "Gestión hotelera completa: empleados, estadías, check-in/check-out y habitaciones, sobre PostgreSQL.",
       images: [
         "assets/hotel1.png",
         "assets/hotel2.png",
@@ -64,6 +116,10 @@ window.portfolioData = {
       description:
         "Chat web familiar estilo MSN con login, registro y dashboard. Front completo en vanilla JS + Firebase; pendiente configurar credenciales y desplegar la demo.",
       years: "2026 · proyecto familiar",
+      category: "web",
+      rank: 9,
+      summary:
+        "Chat web familiar estilo MSN con login, registro y panel, en JavaScript y Firebase.",
       tech: ["HTML", "CSS", "JavaScript", "Firebase"],
       repoUrl: "https://github.com/angelvalecillos/family-chat-room"
     },
@@ -74,6 +130,10 @@ window.portfolioData = {
       description:
         "Landing bilingüe ES/EN para fotógrafa (cliente real), publicada en Cloudflare Pages con panel privado propio: sube, borra y reordena las fotos y edita los textos sin tocar código. Pendiente: ciudad, precios y condiciones de la clienta.",
       years: "2026 · cliente real (fotógrafa)",
+      category: "web",
+      rank: 2,
+      summary:
+        "Web bilingüe para fotógrafa, con panel privado para subir fotos y editar textos sin tocar código.",
       tech: ["HTML", "CSS", "JavaScript", "Cloudflare Pages"],
       repoUrl: "https://github.com/angelvalecillos/aleen-fotografia",
       demoUrl: "https://eyeleanphotography.com",
@@ -98,7 +158,10 @@ window.portfolioData = {
       repoUrl: "https://github.com/angelvalecillos/agenda-de-contactos",
       demoUrl: "assets/Manual-agenda.pdf",
       imageUrl: "assets/agenda.png",
-      imageLayout: "scroll"
+      imageLayout: "scroll",
+      category: "escritorio",
+      rank: 6,
+      summary: "Agenda de contactos con importación CSV, multi-idioma, QR e instalador para Windows."
     },
     {
       title: "Generador QR",
@@ -110,7 +173,10 @@ window.portfolioData = {
       repoUrl: "https://github.com/angelvalecillos/Generador-QR",
       demoUrl: "assets/Manual-qr.pdf",
       imageUrl: "assets/qr.png",
-      imageLayout: "scroll"
+      imageLayout: "scroll",
+      category: "escritorio",
+      rank: 7,
+      summary: "Generador de códigos QR para enlaces, contactos y grupos de WhatsApp, listo para imprimir."
     },
     {
       title: "Java Exe Builder",
@@ -121,7 +187,10 @@ window.portfolioData = {
       repoUrl: "https://github.com/angelvalecillos/java-exe-builder",
       demoUrl: "assets/Manual-compilador.pdf",
       imageUrl: "assets/compilador-java.png",
-      imageLayout: "scroll"
+      imageLayout: "scroll",
+      category: "escritorio",
+      rank: 8,
+      summary: "Convierte cualquier .jar en .exe portátil o instalador firmado, con un asistente en Windows."
     },
     {
       title: "Notario Yare — Alabama",
@@ -133,7 +202,10 @@ window.portfolioData = {
       repoUrl: "https://github.com/angelvalecillos/notario-yare",
       demoUrl: "https://yareimanotary.com/",
       imageUrl: "assets/notario.png",
-      imageLayout: "scroll"
+      imageLayout: "scroll",
+      category: "web",
+      rank: 1,
+      summary: "Landing bilingüe para notario móvil en Alabama: servicios, tarifas y WhatsApp directo."
     },
     {
       title: "Zorro y la Gallina",
@@ -146,7 +218,26 @@ window.portfolioData = {
       demoUrl: "https://valecillos.itch.io/el-zorro-y-la-gallina",
       demoLabel: "Jugar",
       imageUrl: "assets/zorro.jpg",
-      imageLayout: "scroll"
+      imageLayout: "scroll",
+      category: "juegos",
+      rank: 4,
+      summary: "Juego de mesa venezolano para 2 jugadores o contra la IA, en el navegador y en el móvil."
+    },
+    {
+      title: "Traductor para iglesia",
+      subtitle: "Subtítulos y voz en vivo · 6 idiomas",
+      status: "Terminado",
+      description:
+        "App para el culto: el predicador habla y cada móvil lee y escucha la traducción en español, inglés, alemán, rumano, polaco o portugués de Brasil. Tres vistas (emisor, oyente y pantalla para OBS), glosario para no traducir nombres propios y sin cuotas: reconocimiento de voz del navegador, traductor público de Google y Firebase. En marcha con una iglesia real.",
+      tech: ["HTML", "CSS", "JavaScript", "Firebase", "Web Speech API"],
+      demoUrl: "https://iglesia-traductor-fd5b8.web.app",
+      demoLabel: "Abrir app",
+      imageUrl: "assets/iglesia-oyente.jpg",
+      imageFit: "contain",
+      imageLayout: "scroll",
+      category: "web",
+      rank: 5,
+      summary: "Subtítulos y voz en vivo en 6 idiomas: el predicador habla y cada móvil lee y escucha."
     },
     {
       title: "Calculadora Básica",
@@ -156,7 +247,10 @@ window.portfolioData = {
         "Calculadora de escritorio con historial en .txt. Ejercicio junior de 4 clases; sin Maven ni tests.",
       tech: ["Java", "Swing"],
       imageUrl: "assets/calculadora.png",
-      imageLayout: "scroll"
+      imageLayout: "scroll",
+      category: "escritorio",
+      rank: 10,
+      summary: "Calculadora de escritorio con historial, para practicar estructura y eventos en Java."
     }
   ],
 

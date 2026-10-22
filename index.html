@@ -3,119 +3,354 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Portafolio — Programador Java</title>
-    <meta name="description" content="Portafolio de desarrollador Java sin experiencia, proyectos Java con SQLite y PostgreSQL." />
+    <title>Angel Valecillos — Programador Java y web | Software a medida</title>
+    <meta
+      name="description"
+      content="Programador Java y web en Salamanca. Webs para negocios, software de gestión, aplicaciones de escritorio y juegos HTML5. Trato directo, presupuesto antes de empezar."
+    />
+    <meta name="theme-color" content="#0f1218" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-    <!-- Importa tu CSS ubicado en Site Root -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="modelo.css" />
   </head>
   <body>
     <!-- Fondo Matrix: lluvia de código + líneas de código. Decorativo. -->
     <canvas id="matrix" class="matrix-canvas" aria-hidden="true"></canvas>
     <canvas id="matrixCode" class="matrix-canvas" aria-hidden="true"></canvas>
 
-    <header class="site-header">
-      <div class="container header-grid">
-        <div class="identity">
-          <div class="avatar-stack">
-            <img id="photo" class="avatar" alt="Foto de perfil" />
-            <img id="photoAlt" class="avatar avatar-alt" alt="" aria-hidden="true" />
+    <a class="m-skip" href="#main">Saltar al contenido</a>
+
+    <header class="m-nav" id="top">
+      <div class="m-wrap m-nav-inner">
+        <a class="m-brand" href="#top" aria-label="Angel Valecillos, inicio">
+          <span class="m-logo" aria-hidden="true">AV</span>
+          <span class="m-brand-txt">
+            <strong>Angel Valecillos</strong>
+            <small>Programador Java y web</small>
+          </span>
+        </a>
+
+        <nav class="m-links" id="mNav" aria-label="Principal">
+          <div class="m-drop" id="mDrop">
+            <button
+              type="button"
+              class="m-drop-btn"
+              id="mDropBtn"
+              aria-expanded="false"
+              aria-controls="megaEsp"
+            >
+              Especialidades
+              <svg class="m-caret" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="m-mega" id="megaEsp" role="region" aria-label="Especialidades"></div>
           </div>
-          <div>
-            <h1 id="name" class="title"></h1>
-            <p id="mainSkill" class="subtitle"></p>
-            <p id="location" class="muted"></p>
-            <div id="contacts" class="contact-row"></div>
-          </div>
-        </div>
-        <div class="actions">
-          <button id="cvButton" class="btn" aria-label="Ver CV">CV</button>
-          <button id="themeToggle" class="btn-outline" aria-label="Cambiar tema">Dark/Light</button>
+          <a href="#proyectos">Proyectos</a>
+          <a href="#pruebas">Pruébalo</a>
+          <a href="#proceso">Cómo trabajo</a>
+          <a href="#sobre-mi">Sobre mí</a>
+        </nav>
+
+        <div class="m-nav-actions">
+          <button type="button" id="themeToggle" class="m-icon" aria-label="Cambiar entre tema oscuro y claro" title="Cambiar tema">
+            <svg class="m-ico-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+            </svg>
+            <svg class="m-ico-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6" />
+              <path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+          </button>
+          <a class="btn m-cta" href="#contacto">Hablemos</a>
+          <button type="button" class="m-burger" id="mBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mNav">
+            <span></span><span></span>
+          </button>
         </div>
       </div>
     </header>
 
-    <main class="container">
-      <section aria-labelledby="about-title" class="section">
-        <h2 id="about-title" class="section-title">Sobre mí</h2>
-        <div class="panel">
-          <p id="about" class="section-text"></p>
+    <main id="main">
+      <!-- ================= HERO ================= -->
+      <section class="m-hero">
+        <div class="m-wrap m-hero-grid">
+          <div class="m-hero-copy">
+            <p class="m-kicker"><span class="m-dot" aria-hidden="true"></span>Disponible para nuevos proyectos</p>
+            <h1>Tu web o tu programa, <span class="m-hl">hecho a mano</span> y sin intermediarios.</h1>
+            <p class="m-lead">
+              Soy <strong id="mHeroName">Angel Valecillos</strong>, programador Java y web en Salamanca.
+              Construyo webs para negocios, software de gestión y juegos HTML5. Hablas siempre
+              con la persona que escribe el código.
+            </p>
+            <div class="m-cta-row">
+              <a class="btn m-btn-lg" href="#contacto">Hablemos de tu proyecto</a>
+              <a class="btn-outline m-btn-lg" href="#proyectos">Ver proyectos</a>
+            </div>
+            <ul class="m-facts">
+              <li>Salamanca · remoto</li>
+              <li>Respuesta en 24 h</li>
+              <li>Presupuesto antes de empezar</li>
+            </ul>
+          </div>
+
+          <div class="m-hero-side">
+            <figure class="m-photo">
+              <div class="avatar-stack">
+                <img id="photo" class="avatar" alt="Retrato de Angel Valecillos" />
+                <img id="photoAlt" class="avatar avatar-alt" alt="" aria-hidden="true" />
+              </div>
+              <figcaption class="m-photo-tag"><span class="m-dot" aria-hidden="true"></span>En Salamanca, disponible en remoto</figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 
-      <section aria-labelledby="tech-title" class="section">
-        <h2 id="tech-title" class="section-title">Tecnologías</h2>
-        <div class="panel">
-          <div id="techBadges" class="badge-grid"></div>
+      <!-- ================= ESPECIALIDADES ================= -->
+      <section class="m-section" id="especialidades">
+        <div class="m-wrap">
+          <header class="m-head">
+            <div>
+              <p class="m-kicker">[ Especialidades ]</p>
+              <h2>Todo lo que puedo hacer por tu negocio, agrupado y sin humo.</h2>
+            </div>
+            <p class="m-lead">
+              Cuatro formas de trabajar juntos. Si tu caso no encaja en ninguna,
+              escríbeme igual: probablemente también se pueda.
+            </p>
+          </header>
+
+          <div class="m-serv-grid" id="mServGrid"></div>
+
+          <div class="m-serv-extra">
+            <p class="m-serv-extra-label">También me encargo de</p>
+            <ul class="m-chips" id="mExtraServ"></ul>
+          </div>
         </div>
       </section>
 
-      <section aria-labelledby="experience-title" class="section">
-        <div class="section-title-row">
-          <h2 id="experience-title" class="section-title">Proyectos en desarrollo</h2>
-          <span class="muted">Estado</span>
+      <!-- ================= PROYECTOS ================= -->
+      <section class="m-section" id="proyectos">
+        <div class="m-wrap">
+          <header class="m-head">
+            <div>
+              <p class="m-kicker">[ Proyectos ]</p>
+              <h2>Trabajos reales, clasificados por tipo.</h2>
+            </div>
+            <p class="m-lead">
+              Proyectos terminados o en marcha. Filtra por lo que necesites:
+              web, gestión, escritorio o juegos.
+            </p>
+          </header>
+
+          <div class="m-filters-row">
+            <div class="m-filters" id="mFilters" role="group" aria-label="Filtrar proyectos por tipo"></div>
+            <p class="m-count" id="mCount" aria-live="polite"></p>
+          </div>
+
+          <div class="m-proj-grid" id="mProjGrid"></div>
         </div>
-        <div id="experienceList" class="card-list"></div>
       </section>
 
-      <section aria-labelledby="projects-title" class="section">
-        <h2 id="projects-title" class="section-title">Proyectos</h2>
-        <div id="projectList" class="card-grid"></div>
-      </section>
+      <!-- ================= PRUEBAS EN VIVO ================= -->
+      <section class="m-section" id="pruebas">
+        <div class="m-wrap">
+          <header class="m-head">
+            <div>
+              <p class="m-kicker">[ Pruébalo ]</p>
+              <h2>Esto no es una captura: funciona aquí mismo.</h2>
+            </div>
+            <p class="m-lead">
+              Una versión pequeña y real del traductor que hice para una iglesia.
+              Escribe en español, elige el idioma y míralo traducir en vivo.
+            </p>
+          </header>
 
-      <section aria-labelledby="education-title" class="section">
-        <div class="section-title-row">
-          <h2 id="education-title" class="section-title">Formación</h2>
-          <span class="muted">Años</span>
+          <div class="m-demo">
+            <div class="m-demo-head">
+              <p class="m-demo-title"><span class="m-dot" aria-hidden="true"></span>Traductor en vivo</p>
+              <span class="m-demo-tag">6 idiomas</span>
+            </div>
+
+            <div class="m-demo-body">
+              <div class="m-demo-pane">
+                <label class="m-demo-label" for="demoTexto">Escribes en español</label>
+                <textarea id="demoTexto" class="m-demo-input" rows="5" maxlength="400" spellcheck="true">Ánimo, no estás solo. Hoy hablamos del amor de Dios.</textarea>
+                <p class="m-demo-meta">
+                  <span id="demoEstado" role="status">Listo para traducir</span>
+                  <span id="demoCuenta">0/400</span>
+                </p>
+              </div>
+
+              <div class="m-demo-pane m-demo-side">
+                <div class="m-demo-langs" id="demoLangs" role="group" aria-label="Idioma de destino"></div>
+                <p class="m-demo-label" id="demoLangLabel">English</p>
+                <p class="m-demo-text" id="demoSalida" aria-live="polite"></p>
+                <div class="m-demo-actions">
+                  <button type="button" class="btn-outline" id="demoEscuchar">Escuchar</button>
+                  <button type="button" class="btn-outline" id="demoCopiar">Copiar</button>
+                </div>
+              </div>
+            </div>
+
+            <p class="m-demo-foot">
+              <span>Traduce con el servicio público de Google, sin claves, igual que la app real. El texto se envía a ese servicio y no se guarda.</span>
+              <a class="m-link" href="https://iglesia-traductor-fd5b8.web.app" target="_blank" rel="noopener">Ver el proyecto completo →</a>
+            </p>
+          </div>
         </div>
-        <div id="educationList" class="card-list"></div>
       </section>
 
-      <section aria-labelledby="extra-title" class="section">
-        <h2 id="extra-title" class="section-title">Extra</h2>
-        <div class="panel">
-          <div class="extra-grid">
+      <!-- ================= CÓMO TRABAJO ================= -->
+      <section class="m-section" id="proceso">
+        <div class="m-wrap">
+          <header class="m-head">
             <div>
-              <h3 class="extra-subtitle">Idiomas</h3>
-              <ul id="languages" class="list"></ul>
+              <p class="m-kicker">[ Cómo trabajo ]</p>
+              <h2>Cuatro pasos, sin sorpresas.</h2>
             </div>
-            <div>
-              <h3 class="extra-subtitle">Conocimientos en:</h3>
-              <ul id="learning" class="list"></ul>
+            <p class="m-lead">
+              Así es trabajar conmigo, de la primera conversación a la entrega.
+              Sin reuniones que no llevan a nada.
+            </p>
+          </header>
+
+          <ol class="m-steps">
+            <li class="m-step">
+              <span class="m-step-n">01</span>
+              <h3>Hablamos</h3>
+              <p>Me cuentas qué necesitas y para cuándo. Te digo si se puede, cómo lo haría y qué hace falta.</p>
+            </li>
+            <li class="m-step">
+              <span class="m-step-n">02</span>
+              <h3>Propuesta</h3>
+              <p>Qué incluye, cuánto cuesta y qué necesito de ti. Todo por escrito antes de empezar.</p>
+            </li>
+            <li class="m-step">
+              <span class="m-step-n">03</span>
+              <h3>Desarrollo</h3>
+              <p>Entregas parciales para que lo veas funcionar desde el principio y corrijamos a tiempo.</p>
+            </li>
+            <li class="m-step">
+              <span class="m-step-n">04</span>
+              <h3>Entrega y soporte</h3>
+              <p>Publicado o instalado, con manual. Y cambios después, cuando los necesites.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ================= SOBRE MÍ ================= -->
+      <section class="m-section" id="sobre-mi">
+        <div class="m-wrap">
+          <div class="m-about">
+            <div class="m-about-copy">
+              <p class="m-kicker">[ Sobre mí ]</p>
+              <h2>Quién escribe el código.</h2>
+              <div class="panel m-bio">
+                <p id="mBio"></p>
+                <p class="m-quote">«No soy “vibe coding”: escribo y entiendo cada línea de mi código.»</p>
+              </div>
+              <div class="m-cta-row">
+                <a class="btn-outline m-btn-lg" id="mCv" href="assets/CV.pdf" target="_blank" rel="noopener">Descargar CV (PDF)</a>
+              </div>
             </div>
-            <div>
-              <h3 class="extra-subtitle">Certificaciones</h3>
-              <ul id="certifications" class="list"></ul>
+
+            <div class="m-about-side">
+              <dl class="m-ficha">
+                <div><dt>Ubicación</dt><dd>Salamanca, España · trabajo en remoto</dd></div>
+                <div><dt>Formación</dt><dd>Ingeniero de Sistemas · UNEFA (2015)</dd></div>
+                <div><dt>Idiomas</dt><dd>Español (nativo) · Inglés (B2)</dd></div>
+                <div>
+                  <dt>Certificaciones</dt>
+                  <dd>Montaje y mantenimiento de sistemas microinformáticos (IFCT0108, 370 h) · ECI Diploma · Desarrollo con IA (MourDev)</dd>
+                </div>
+                <div><dt>Disponibilidad</dt><dd>Proyectos nuevos · respuesta en 24 h</dd></div>
+              </dl>
             </div>
-            <div>
-              <h3 class="extra-subtitle">Aficiones</h3>
-              <ul id="hobbies" class="list"></ul>
-            </div>
-            <div>
-              <h3 class="extra-subtitle">Otros</h3>
-              <ul id="contributions" class="list"></ul>
-            </div>
-            <div>
-              <h3 class="extra-subtitle">Blog / Notas</h3>
-              <ul id="blog" class="list"></ul>
+          </div>
+
+          <div class="m-tech-block">
+            <h3 class="m-sub">Tecnologías con las que trabajo</h3>
+            <div class="panel m-tech-panel">
+              <div id="mTech" class="m-tech-grid"></div>
             </div>
           </div>
         </div>
       </section>
+
+      <!-- ================= CONTACTO ================= -->
+      <section class="m-section m-contact" id="contacto">
+        <div class="m-wrap m-contact-grid">
+          <div class="m-contact-copy">
+            <p class="m-kicker">[ Contacto ]</p>
+            <h2>Cuéntame qué necesitas.</h2>
+            <p class="m-lead">
+              Escríbeme y te contesto en menos de 24 horas con una primera idea
+              y un precio orientativo, sin compromiso.
+            </p>
+
+            <ul class="m-contact-list">
+              <li><span>Correo</span><a id="mEmail" href="#">—</a></li>
+              <li><span>GitHub</span><a id="mGithub" href="#" target="_blank" rel="noopener">—</a></li>
+              <li><span>LinkedIn</span><a id="mLinkedin" href="#" target="_blank" rel="noopener">—</a></li>
+            </ul>
+
+            <p class="m-note">
+              Sin formularios que se pierden: el formulario abre tu correo con el
+              mensaje ya escrito, así sabes exactamente qué me llega.
+            </p>
+          </div>
+
+          <form class="m-form panel" id="mForm" novalidate>
+            <div class="m-field">
+              <label for="fNombre">Tu nombre</label>
+              <input id="fNombre" name="nombre" type="text" autocomplete="name" required />
+            </div>
+            <div class="m-field">
+              <label for="fEmail">Tu correo</label>
+              <input id="fEmail" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="m-field">
+              <label for="fTipo">Qué necesitas</label>
+              <select id="fTipo" name="tipo">
+                <option>Una web para mi negocio</option>
+                <option>Software de gestión</option>
+                <option>Una aplicación de escritorio</option>
+                <option>Un juego HTML5</option>
+                <option>Otra cosa</option>
+              </select>
+            </div>
+            <div class="m-field">
+              <label for="fMsg">Cuéntame el proyecto</label>
+              <textarea id="fMsg" name="mensaje" rows="5" required placeholder="Qué quieres conseguir, para cuándo y si ya tienes algo hecho."></textarea>
+            </div>
+            <button class="btn m-btn-lg" type="submit">Enviar por correo</button>
+            <p class="m-form-note" id="mFormNote" role="status"></p>
+          </form>
+        </div>
+      </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-grid">
-        <span id="footerName"></span>
-        <div id="footerContacts" class="contact-row"></div>
+    <footer class="m-footer">
+      <div class="m-wrap m-footer-inner">
+        <p class="m-footer-name"><span id="mFooterName">Angel Valecillos</span> · Programador Java y web · Salamanca</p>
+        <nav class="m-footer-links" aria-label="Enlaces de contacto">
+          <a id="mFooterEmail" href="#">Correo</a>
+          <a id="mFooterGithub" href="#" target="_blank" rel="noopener">GitHub</a>
+          <a id="mFooterLinkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+          <a id="mFooterCv" href="assets/CV.pdf" target="_blank" rel="noopener">CV</a>
+        </nav>
+        <p class="m-footer-fine">© <span id="mYear">2026</span> · Hecho a mano, sin plantillas.</p>
       </div>
     </footer>
 
-    <!-- JS en Site Root -->
     <script src="matrix.js"></script>
     <script src="content.js"></script>
-    <script src="script.js"></script>
+    <script src="modelo.js"></script>
   </body>
 </html>
