@@ -227,10 +227,7 @@
         const demo = p.demoUrl
           ? `<a class="btn" href="${p.demoUrl}" target="_blank" rel="noopener">${etiquetaDemo(p)}</a>`
           : "";
-        const repo = p.repoUrl
-          ? `<a class="btn-outline" href="${p.repoUrl}" target="_blank" rel="noopener">Código</a>`
-          : "";
-        const link = p.demoUrl || p.repoUrl;
+        const link = p.demoUrl;
         const mediaClass = "m-proj-media" + (p.imageFit === "contain" ? " is-contain" : "");
         const media = img
           ? `<img src="${img}" alt="Captura de ${p.title}" loading="lazy" />`
@@ -251,7 +248,7 @@
             <h3>${p.title}</h3>
             <p>${p.summary || p.description}</p>
             ${tags ? `<div class="m-tags">${tags}</div>` : ""}
-            <div class="m-proj-actions">${repo}${demo}</div>
+            ${demo ? `<div class="m-proj-actions">${demo}</div>` : ""}
           </div>
         </article>`;
       })

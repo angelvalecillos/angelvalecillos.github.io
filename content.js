@@ -121,6 +121,7 @@ window.portfolioData = {
       summary:
         "Chat web familiar estilo MSN con login, registro y panel, en JavaScript y Firebase.",
       tech: ["HTML", "CSS", "JavaScript", "Firebase"],
+      imageUrl: "assets/family-chat.jpg",
       repoUrl: "https://github.com/angelvalecillos/family-chat-room"
     },
     {
