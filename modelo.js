@@ -41,7 +41,7 @@
   // Igual que en el portafolio: demoLabel manda; si no, .pdf = manual.
   const etiquetaDemo = (item) =>
     item.demoLabel ||
-    (item.demoUrl && item.demoUrl.toLowerCase().endsWith(".pdf") ? "Manual.pdf" : "Ver sitio");
+    (item.demoUrl && item.demoUrl.toLowerCase().endsWith(".pdf") ? "Ver manual" : "Ver sitio");
 
   const ICONS = {
     web:
@@ -225,8 +225,10 @@
         const status = p.status ? `<span class="status ${statusClass(p.status)}">${p.status}</span>` : "";
         const tags = (p.tech || []).slice(0, 4).map((t) => `<span class="m-tag">${t}</span>`).join("");
         const demo = p.demoUrl
-          ? `<a class="btn" href="${p.demoUrl}" target="_blank" rel="noopener">${etiquetaDemo(p)}</a>`
+          ? `<a class="btn-outline" href="${p.demoUrl}" target="_blank" rel="noopener">${etiquetaDemo(p)}</a>`
           : "";
+        // Todas las fichas llevan a la vez al formulario de contacto.
+        const pedir = `<a class="btn" href="#contacto" data-demo="${p.title}" data-cat="${p.category}">Pedir demo</a>`;
         const link = p.demoUrl;
         const mediaClass = "m-proj-media" + (p.imageFit === "contain" ? " is-contain" : "");
         const media = img
@@ -248,7 +250,7 @@
             <h3>${p.title}</h3>
             <p>${p.summary || p.description}</p>
             ${tags ? `<div class="m-tags">${tags}</div>` : ""}
-            ${demo ? `<div class="m-proj-actions">${demo}</div>` : ""}
+            <div class="m-proj-actions">${pedir}${demo}</div>
           </div>
         </article>`;
       })
@@ -293,6 +295,36 @@
       setFilter(a.dataset.jump);
       const target = el("proyectos");
       if (target) target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    });
+  }
+
+  // "Pedir demo": baja al formulario, marca el tipo de proyecto y escribe el mensaje.
+  if (grid) {
+    const ORDEN_TIPO = { web: 0, gestion: 1, escritorio: 2, juegos: 3 };
+
+    grid.addEventListener("click", (e) => {
+      const a = e.target.closest("a[data-demo]");
+      if (!a) return;
+
+      const tipo = el("fTipo");
+      const msg = el("fMsg");
+      const indice = ORDEN_TIPO[a.dataset.cat];
+      if (tipo && typeof indice === "number") tipo.selectedIndex = indice;
+
+      if (msg) {
+        const texto = msg.value.trim();
+        if (!texto || /^Me interesa una demo de/.test(texto)) {
+          msg.value = `Me interesa una demo de «${a.dataset.demo}».`;
+        }
+      }
+
+      // El foco se pone cuando el navegador ya ha saltado al formulario.
+      window.setTimeout(() => {
+        const nombre = el("fNombre");
+        const correo = el("fEmail");
+        const foco = nombre && !nombre.value.trim() ? nombre : correo && !correo.value.trim() ? correo : msg;
+        if (foco) foco.focus({ preventScroll: true });
+      }, 500);
     });
   }
 
