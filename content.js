@@ -95,6 +95,10 @@ window.portfolioData = {
         "Aplicación en desarrollo construida en Java que se conecta a un servidor PostgreSQL y, al iniciar, verifica y crea automáticamente las tablas necesarias; actualmente gestiona empleados, estadías, procesos de check-in y check-out, y a futuro incorporará el bloqueo de habitaciones sucias o en mantenimiento, el registro y cobro de servicios de comensales, entre otras funcionalidades orientadas a optimizar la operación hotelera. Versión legacy funcional (hoteles24, Java+Swing+Ant) y rewrite moderno del backend (HotelProyect: Java 24, Maven, HikariCP, jBCrypt, GUI pendiente).",
       years: "original en 2015, recuperando código 2025-2026",
       category: "gestion",
+      // Vídeo promocional: se descarga solo al pulsar la captura.
+      videoUrl: "assets/promo-hotel.mp4",
+      videoPoster: "assets/promo-hotel-poster.jpg",
+      videoLabel: "Ver el vídeo · 12 s",
       rank: 3,
       summary:
         "Gestión hotelera completa: empleados, estadías, check-in/check-out y habitaciones, sobre PostgreSQL.",
@@ -117,6 +121,10 @@ window.portfolioData = {
         "Chat web familiar estilo MSN con login, registro y dashboard. Front completo en vanilla JS + Firebase; pendiente configurar credenciales y desplegar la demo.",
       years: "2026 · proyecto familiar",
       category: "web",
+      // Vídeo promocional: se descarga solo al pulsar la captura.
+      videoUrl: "assets/promo-family.mp4",
+      videoPoster: "assets/promo-family-poster.jpg",
+      videoLabel: "Ver el vídeo · 12 s",
       rank: 9,
       summary:
         "Chat web familiar estilo MSN con login, registro y panel, en JavaScript y Firebase.",
@@ -132,6 +140,10 @@ window.portfolioData = {
         "Landing bilingüe ES/EN para fotógrafa (cliente real), publicada en Cloudflare Pages con panel privado propio: sube, borra y reordena las fotos y edita los textos sin tocar código. Pendiente: ciudad, precios y condiciones de la clienta.",
       years: "2026 · cliente real (fotógrafa)",
       category: "web",
+      // Vídeo promocional: se descarga solo al pulsar la captura.
+      videoUrl: "assets/promo-aleen.mp4",
+      videoPoster: "assets/promo-aleen-poster.jpg",
+      videoLabel: "Ver el vídeo · 12 s",
       rank: 2,
       summary:
         "Web bilingüe para fotógrafa, con panel privado para subir fotos y editar textos sin tocar código.",
@@ -161,6 +173,10 @@ window.portfolioData = {
       imageUrl: "assets/agenda.png",
       imageLayout: "scroll",
       category: "escritorio",
+      // Vídeo promocional: se descarga solo al pulsar la captura.
+      videoUrl: "assets/promo-agenda.mp4",
+      videoPoster: "assets/promo-agenda-poster.jpg",
+      videoLabel: "Ver el vídeo · 12 s",
       rank: 6,
       summary: "Agenda de contactos con importación CSV, multi-idioma, QR e instalador para Windows."
     },
@@ -176,6 +192,10 @@ window.portfolioData = {
       imageUrl: "assets/qr.png",
       imageLayout: "scroll",
       category: "escritorio",
+      // Vídeo promocional: se descarga solo al pulsar la captura.
+      videoUrl: "assets/promo-qr.mp4",
+      videoPoster: "assets/promo-qr-poster.jpg",
+      videoLabel: "Ver el vídeo · 12 s",
       rank: 7,
       summary: "Generador de códigos QR para enlaces, contactos y grupos de WhatsApp, listo para imprimir."
     },
@@ -190,6 +210,10 @@ window.portfolioData = {
       imageUrl: "assets/compilador-java.png",
       imageLayout: "scroll",
       category: "escritorio",
+      // Vídeo promocional: se descarga solo al pulsar la captura.
+      videoUrl: "assets/promo-compilador.mp4",
+      videoPoster: "assets/promo-compilador-poster.jpg",
+      videoLabel: "Ver el vídeo · 12 s",
       rank: 8,
       summary: "Convierte cualquier .jar en .exe portátil o instalador firmado, con un asistente en Windows."
     },
@@ -205,6 +229,10 @@ window.portfolioData = {
       imageUrl: "assets/notario.png",
       imageLayout: "scroll",
       category: "web",
+      // Vídeo promocional: se descarga solo al pulsar la captura.
+      videoUrl: "assets/promo-notario.mp4",
+      videoPoster: "assets/promo-notario-poster.jpg",
+      videoLabel: "Ver el vídeo · 12 s",
       rank: 1,
       summary: "Landing bilingüe para notario móvil en Alabama: servicios, tarifas y WhatsApp directo."
     },
@@ -241,6 +269,10 @@ window.portfolioData = {
       imageFit: "contain",
       imageLayout: "scroll",
       category: "web",
+      // Vídeo promocional: se descarga solo al pulsar la captura.
+      videoUrl: "assets/promo-iglesia.mp4",
+      videoPoster: "assets/promo-iglesia-poster.jpg",
+      videoLabel: "Ver el vídeo · 12 s",
       rank: 5,
       summary: "Subtítulos y voz en vivo en 6 idiomas: el predicador habla y cada móvil lee y escucha."
     },
@@ -254,6 +286,10 @@ window.portfolioData = {
       imageUrl: "assets/calculadora.png",
       imageLayout: "scroll",
       category: "escritorio",
+      // Vídeo promocional: se descarga solo al pulsar la captura.
+      videoUrl: "assets/promo-calculadora.mp4",
+      videoPoster: "assets/promo-calculadora-poster.jpg",
+      videoLabel: "Ver el vídeo · 12 s",
       rank: 10,
       summary: "Calculadora de escritorio con historial, para practicar estructura y eventos en Java."
     }

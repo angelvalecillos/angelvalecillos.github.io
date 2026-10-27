@@ -812,8 +812,8 @@ html.video-abierto body { overflow: hidden; }
 }
 .m-video-x {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: -16px;
+  right: -16px;
   display: grid;
   place-items: center;
   width: 40px;
@@ -821,7 +821,7 @@ html.video-abierto body { overflow: hidden; }
   padding: 0;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.32);
-  background: rgba(10, 12, 20, 0.66);
+  background: rgba(10, 12, 20, 0.86);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   color: #fff;
@@ -834,7 +834,7 @@ html.video-abierto body { overflow: hidden; }
 
 @media (max-width: 560px) {
   .m-video video { max-height: 72vh; border-radius: 14px; }
-  .m-video-x { top: 8px; right: 8px; width: 36px; height: 36px; }
+  .m-video-x { top: -12px; right: -12px; width: 34px; height: 34px; }
   .m-video-cap { font-size: 12px; }
 }
 
