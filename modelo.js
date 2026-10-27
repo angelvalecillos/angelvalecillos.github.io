@@ -235,13 +235,19 @@
           ? `<img src="${img}" alt="Captura de ${p.title}" loading="lazy" />`
           : `<span class="m-proj-noimg"><small>Sin captura todavía</small><strong>${p.title}</strong></span>`;
 
+        // Con vídeo, la captura abre el reproductor; el juego sigue en los botones.
+        const badge = p.videoUrl
+          ? `<span class="m-play"><span class="m-play-ico" aria-hidden="true">▶</span>${p.videoLabel || "Ver vídeo"}</span>`
+          : "";
+        const mediaBlock = p.videoUrl
+          ? `<button type="button" class="${mediaClass} is-video" data-video="${p.videoUrl}" data-poster="${p.videoPoster || ""}" data-video-title="${p.title}" aria-label="Ver el vídeo de ${p.title}">${media}${badge}</button>`
+          : link
+            ? `<a class="${mediaClass}" href="${link}" target="_blank" rel="noopener" aria-label="${p.title} (se abre en otra pestaña)">${media}</a>`
+            : `<div class="${mediaClass}">${media}</div>`;
+
         return `
         <article class="m-proj">
-          ${
-            link
-              ? `<a class="${mediaClass}" href="${link}" target="_blank" rel="noopener" aria-label="${p.title} (se abre en otra pestaña)">${media}</a>`
-              : `<div class="${mediaClass}">${media}</div>`
-          }
+          ${mediaBlock}
           <div class="m-proj-body">
             <div class="m-proj-meta">
               <span class="m-cat">${catLabel}</span>
@@ -325,6 +331,62 @@
         const foco = nombre && !nombre.value.trim() ? nombre : correo && !correo.value.trim() ? correo : msg;
         if (foco) foco.focus({ preventScroll: true });
       }, 500);
+    });
+  }
+
+  /* ---------- Vídeo de la ficha ----------
+     El MP4 NO se descarga al cargar la página: se pide al abrir el
+     reproductor y, al cerrarlo, se suelta de la memoria. */
+  let vDlg = null;
+  let vVideo = null;
+
+  const montarVideo = () => {
+    vDlg = document.createElement("dialog");
+    vDlg.className = "m-video";
+    vDlg.setAttribute("aria-label", "Vídeo promocional");
+    vDlg.innerHTML = `
+      <div class="m-video-box">
+        <div class="m-video-frame">
+          <video controls playsinline preload="none" width="1080" height="1920"></video>
+          <button type="button" class="m-video-x" aria-label="Cerrar el vídeo">✕</button>
+        </div>
+        <p class="m-video-cap"></p>
+      </div>`;
+    document.body.appendChild(vDlg);
+    vVideo = vDlg.querySelector("video");
+
+    vDlg.querySelector(".m-video-x").addEventListener("click", () => vDlg.close());
+    // Un clic en el fondo oscuro (fuera de la caja) también cierra.
+    vDlg.addEventListener("click", (e) => {
+      if (!e.target.closest(".m-video-box")) vDlg.close();
+    });
+    vDlg.addEventListener("close", () => {
+      vVideo.pause();
+      vVideo.removeAttribute("src");
+      vVideo.load();
+      document.documentElement.classList.remove("video-abierto");
+    });
+  };
+
+  const abrirVideo = (src, poster, titulo) => {
+    if (!vDlg) montarVideo();
+    vVideo.poster = poster || "";
+    vVideo.src = src;
+    vDlg.querySelector(".m-video-cap").textContent = titulo;
+    document.documentElement.classList.add("video-abierto");
+    if (typeof vDlg.showModal === "function") vDlg.showModal();
+    else vDlg.setAttribute("open", "");
+    const intento = vVideo.play();
+    // Si el navegador bloquea la reproducción automática, quedan los controles.
+    if (intento && intento.catch) intento.catch(() => {});
+  };
+
+  if (grid) {
+    grid.addEventListener("click", (e) => {
+      const vid = e.target.closest("[data-video]");
+      if (!vid) return;
+      e.preventDefault();
+      abrirVideo(vid.dataset.video, vid.dataset.poster, vid.dataset.videoTitle);
     });
   }
 

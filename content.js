@@ -220,6 +220,10 @@ window.portfolioData = {
       demoLabel: "Jugar",
       imageUrl: "assets/zorro.jpg",
       imageLayout: "scroll",
+      // Vídeo promocional: no se descarga hasta que se pulsa la captura.
+      videoUrl: "assets/zorro-promo.mp4",
+      videoPoster: "assets/zorro-promo-poster.jpg",
+      videoLabel: "Ver el vídeo · 18 s",
       category: "juegos",
       rank: 4,
       summary: "Juego de mesa venezolano para 2 jugadores o contra la IA, en el navegador y en el móvil."
