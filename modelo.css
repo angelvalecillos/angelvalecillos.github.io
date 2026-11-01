@@ -169,6 +169,33 @@ a.btn-outline { text-decoration: none; }
 :root.light .m-ico-moon { display: none; }
 .m-icon:hover { border-color: var(--primary); }
 
+/* Selector de idioma: ES / EN (mismo alto que los botones de icono) */
+.m-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+}
+.m-lang-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.m-lang-btn:hover { color: var(--text); }
+.m-lang-btn.is-active { background: var(--primary); color: #fff; }
+
 .m-burger {
   display: none;
   width: 36px;
@@ -1281,7 +1308,9 @@ html.video-abierto body { overflow: hidden; }
 @media (max-width: 560px) {
   .m-wrap { width: calc(100% - 32px); }
   .m-nav-inner { gap: 12px; }
-  .m-cta { padding: 7px 11px; font-size: 13px; }
+  /* En móvil el CTA del menú se oculta para dejar sitio al selector ES/EN;
+     "Hablemos" sigue en el menú de especialidades y en el hero. */
+  .m-cta { display: none; }
   .m-hero-side { grid-template-columns: 1fr; }
   .m-photo { max-width: 300px; }
   .m-steps { grid-template-columns: 1fr; gap: 18px; }

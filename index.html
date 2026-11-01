@@ -8,6 +8,9 @@
       name="description"
       content="Programador Java y web en Salamanca. Webs para negocios, software de gestión, aplicaciones de escritorio y juegos HTML5. Trato directo, presupuesto antes de empezar."
     />
+    <link rel="alternate" hreflang="es" href="https://angelvalecillos.github.io/?lang=es" />
+    <link rel="alternate" hreflang="en" href="https://angelvalecillos.github.io/?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://angelvalecillos.github.io/" />
     <meta name="theme-color" content="#0f1218" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,19 +26,19 @@
     <canvas id="matrix" class="matrix-canvas" aria-hidden="true"></canvas>
     <canvas id="matrixCode" class="matrix-canvas" aria-hidden="true"></canvas>
 
-    <a class="m-skip" href="#main">Saltar al contenido</a>
+    <a class="m-skip" href="#main" data-i18n="skip">Saltar al contenido</a>
 
     <header class="m-nav" id="top">
       <div class="m-wrap m-nav-inner">
-        <a class="m-brand" href="#top" aria-label="Angel Valecillos, inicio">
+        <a class="m-brand" href="#top" data-i18n-aria="brand.aria" aria-label="Angel Valecillos, inicio">
           <span class="m-logo" aria-hidden="true">AV</span>
           <span class="m-brand-txt">
             <strong>Angel Valecillos</strong>
-            <small>Programador Java y web</small>
+            <small data-i18n="brand.role">Programador Java y web</small>
           </span>
         </a>
 
-        <nav class="m-links" id="mNav" aria-label="Principal">
+        <nav class="m-links" id="mNav" data-i18n-aria="nav.aria" aria-label="Principal">
           <div class="m-drop" id="mDrop">
             <button
               type="button"
@@ -44,21 +47,25 @@
               aria-expanded="false"
               aria-controls="megaEsp"
             >
-              Especialidades
+              <span data-i18n="nav.spec">Especialidades</span>
               <svg class="m-caret" viewBox="0 0 12 12" aria-hidden="true">
                 <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </button>
-            <div class="m-mega" id="megaEsp" role="region" aria-label="Especialidades"></div>
+            <div class="m-mega" id="megaEsp" role="region" data-i18n-aria="nav.region" aria-label="Especialidades"></div>
           </div>
-          <a href="#proyectos">Proyectos</a>
-          <a href="#pruebas">Pruébalo</a>
-          <a href="#proceso">Cómo trabajo</a>
-          <a href="#sobre-mi">Sobre mí</a>
+          <a href="#proyectos" data-i18n="nav.projects">Proyectos</a>
+          <a href="#pruebas" data-i18n="nav.try">Pruébalo</a>
+          <a href="#proceso" data-i18n="nav.process">Cómo trabajo</a>
+          <a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a>
         </nav>
 
         <div class="m-nav-actions">
-          <button type="button" id="themeToggle" class="m-icon" aria-label="Cambiar entre tema oscuro y claro" title="Cambiar tema">
+          <div class="m-lang" role="group" data-i18n-aria="lang.aria" aria-label="Idioma / Language">
+            <button type="button" class="m-lang-btn" data-lang-btn="es" aria-pressed="true">ES</button>
+            <button type="button" class="m-lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
+          </div>
+          <button type="button" id="themeToggle" class="m-icon" data-i18n-aria="theme.aria" data-i18n-title="theme.title" aria-label="Cambiar entre tema oscuro y claro" title="Cambiar tema">
             <svg class="m-ico-moon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
             </svg>
@@ -67,8 +74,8 @@
               <path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
             </svg>
           </button>
-          <a class="btn m-cta" href="#contacto">Hablemos</a>
-          <button type="button" class="m-burger" id="mBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mNav">
+          <a class="btn m-cta" href="#contacto" data-i18n="nav.cta">Hablemos</a>
+          <button type="button" class="m-burger" id="mBurger" data-i18n-aria="burger.open" aria-label="Abrir menú" aria-expanded="false" aria-controls="mNav">
             <span></span><span></span>
           </button>
         </div>
@@ -80,31 +87,31 @@
       <section class="m-hero">
         <div class="m-wrap m-hero-grid">
           <div class="m-hero-copy">
-            <p class="m-kicker"><span class="m-dot" aria-hidden="true"></span>Disponible para nuevos proyectos</p>
-            <h1>Tu web o tu programa, <span class="m-hl">hecho a mano</span> y sin intermediarios.</h1>
-            <p class="m-lead">
+            <p class="m-kicker"><span class="m-dot" aria-hidden="true"></span><span data-i18n="hero.kicker">Disponible para nuevos proyectos</span></p>
+            <h1 data-i18n-html="hero.h1">Tu web o tu programa, <span class="m-hl">hecho a mano</span> y sin intermediarios.</h1>
+            <p class="m-lead" data-i18n-html="hero.lead">
               Soy <strong id="mHeroName">Angel Valecillos</strong>, programador Java y web en Salamanca.
               Construyo webs para negocios, software de gestión y juegos HTML5. Hablas siempre
               con la persona que escribe el código.
             </p>
             <div class="m-cta-row">
-              <a class="btn m-btn-lg" href="#contacto">Hablemos de tu proyecto</a>
-              <a class="btn-outline m-btn-lg" href="#proyectos">Ver proyectos</a>
+              <a class="btn m-btn-lg" href="#contacto" data-i18n="hero.cta1">Hablemos de tu proyecto</a>
+              <a class="btn-outline m-btn-lg" href="#proyectos" data-i18n="hero.cta2">Ver proyectos</a>
             </div>
             <ul class="m-facts">
-              <li>Salamanca · remoto</li>
-              <li>Respuesta en 24 h</li>
-              <li>Presupuesto antes de empezar</li>
+              <li data-i18n="hero.fact1">Salamanca · remoto</li>
+              <li data-i18n="hero.fact2">Respuesta en 24 h</li>
+              <li data-i18n="hero.fact3">Presupuesto antes de empezar</li>
             </ul>
           </div>
 
           <div class="m-hero-side">
             <figure class="m-photo">
               <div class="avatar-stack">
-                <img id="photo" class="avatar" alt="Retrato de Angel Valecillos" />
+                <img id="photo" class="avatar" data-i18n-alt="hero.photoAlt" alt="Retrato de Angel Valecillos" />
                 <img id="photoAlt" class="avatar avatar-alt" alt="" aria-hidden="true" />
               </div>
-              <figcaption class="m-photo-tag"><span class="m-dot" aria-hidden="true"></span>En Salamanca, disponible en remoto</figcaption>
+              <figcaption class="m-photo-tag"><span class="m-dot" aria-hidden="true"></span><span data-i18n="hero.photoTag">En Salamanca, disponible en remoto</span></figcaption>
             </figure>
           </div>
         </div>
@@ -115,10 +122,10 @@
         <div class="m-wrap">
           <header class="m-head">
             <div>
-              <p class="m-kicker">[ Especialidades ]</p>
-              <h2>Todo lo que puedo hacer por tu negocio, agrupado y sin humo.</h2>
+              <p class="m-kicker" data-i18n="spec.kicker">[ Especialidades ]</p>
+              <h2 data-i18n="spec.h2">Todo lo que puedo hacer por tu negocio, agrupado y sin humo.</h2>
             </div>
-            <p class="m-lead">
+            <p class="m-lead" data-i18n="spec.lead">
               Cuatro formas de trabajar juntos. Si tu caso no encaja en ninguna,
               escríbeme igual: probablemente también se pueda.
             </p>
@@ -127,7 +134,7 @@
           <div class="m-serv-grid" id="mServGrid"></div>
 
           <div class="m-serv-extra">
-            <p class="m-serv-extra-label">También me encargo de</p>
+            <p class="m-serv-extra-label" data-i18n="spec.extra">También me encargo de</p>
             <ul class="m-chips" id="mExtraServ"></ul>
           </div>
         </div>
@@ -138,17 +145,17 @@
         <div class="m-wrap">
           <header class="m-head">
             <div>
-              <p class="m-kicker">[ Proyectos ]</p>
-              <h2>Trabajos reales, clasificados por tipo.</h2>
+              <p class="m-kicker" data-i18n="proj.kicker">[ Proyectos ]</p>
+              <h2 data-i18n="proj.h2">Trabajos reales, clasificados por tipo.</h2>
             </div>
-            <p class="m-lead">
+            <p class="m-lead" data-i18n="proj.lead">
               Proyectos terminados o en marcha. Filtra por lo que necesites:
               web, gestión, escritorio o juegos.
             </p>
           </header>
 
           <div class="m-filters-row">
-            <div class="m-filters" id="mFilters" role="group" aria-label="Filtrar proyectos por tipo"></div>
+            <div class="m-filters" id="mFilters" role="group" data-i18n-aria="proj.filterAria" aria-label="Filtrar proyectos por tipo"></div>
             <p class="m-count" id="mCount" aria-live="polite"></p>
           </div>
 
@@ -161,10 +168,10 @@
         <div class="m-wrap">
           <header class="m-head">
             <div>
-              <p class="m-kicker">[ Pruébalo ]</p>
-              <h2>Esto no es una captura: funciona aquí mismo.</h2>
+              <p class="m-kicker" data-i18n="try.kicker">[ Pruébalo ]</p>
+              <h2 data-i18n="try.h2">Esto no es una captura: funciona aquí mismo.</h2>
             </div>
-            <p class="m-lead">
+            <p class="m-lead" data-i18n="try.lead">
               Una versión pequeña y real del traductor que hice para una iglesia.
               Escribe en español, elige el idioma y míralo traducir en vivo.
             </p>
@@ -172,34 +179,34 @@
 
           <div class="m-demo">
             <div class="m-demo-head">
-              <p class="m-demo-title"><span class="m-dot" aria-hidden="true"></span>Traductor en vivo</p>
-              <span class="m-demo-tag">6 idiomas</span>
+              <p class="m-demo-title"><span class="m-dot" aria-hidden="true"></span><span data-i18n="try.title">Traductor en vivo</span></p>
+              <span class="m-demo-tag" data-i18n="try.tag">6 idiomas</span>
             </div>
 
             <div class="m-demo-body">
               <div class="m-demo-pane">
-                <label class="m-demo-label" for="demoTexto">Escribes en español</label>
+                <label class="m-demo-label" for="demoTexto" data-i18n="try.inputLabel">Escribes en español</label>
                 <textarea id="demoTexto" class="m-demo-input" rows="5" maxlength="400" spellcheck="true">Ánimo, no estás solo. Hoy hablamos del amor de Dios.</textarea>
                 <p class="m-demo-meta">
-                  <span id="demoEstado" role="status">Listo para traducir</span>
+                  <span id="demoEstado" role="status" data-i18n="try.ready">Listo para traducir</span>
                   <span id="demoCuenta">0/400</span>
                 </p>
               </div>
 
               <div class="m-demo-pane m-demo-side">
-                <div class="m-demo-langs" id="demoLangs" role="group" aria-label="Idioma de destino"></div>
+                <div class="m-demo-langs" id="demoLangs" role="group" data-i18n-aria="try.langsAria" aria-label="Idioma de destino"></div>
                 <p class="m-demo-label" id="demoLangLabel">English</p>
                 <p class="m-demo-text" id="demoSalida" aria-live="polite"></p>
                 <div class="m-demo-actions">
-                  <button type="button" class="btn-outline" id="demoEscuchar">Escuchar</button>
-                  <button type="button" class="btn-outline" id="demoCopiar">Copiar</button>
+                  <button type="button" class="btn-outline" id="demoEscuchar" data-i18n="try.listen">Escuchar</button>
+                  <button type="button" class="btn-outline" id="demoCopiar" data-i18n="try.copy">Copiar</button>
                 </div>
               </div>
             </div>
 
             <p class="m-demo-foot">
-              <span>Traduce con el servicio público de Google, sin claves, igual que la app real. El texto se envía a ese servicio y no se guarda.</span>
-              <a class="m-link" href="https://iglesia-traductor-fd5b8.web.app" target="_blank" rel="noopener">Ver el proyecto completo →</a>
+              <span data-i18n="try.foot">Traduce con el servicio público de Google, sin claves, igual que la app real. El texto se envía a ese servicio y no se guarda.</span>
+              <a class="m-link" href="https://iglesia-traductor-fd5b8.web.app" target="_blank" rel="noopener" data-i18n="try.link">Ver el proyecto completo →</a>
             </p>
           </div>
         </div>
@@ -210,10 +217,10 @@
         <div class="m-wrap">
           <header class="m-head">
             <div>
-              <p class="m-kicker">[ Cómo trabajo ]</p>
-              <h2>Cuatro pasos, sin sorpresas.</h2>
+              <p class="m-kicker" data-i18n="proc.kicker">[ Cómo trabajo ]</p>
+              <h2 data-i18n="proc.h2">Cuatro pasos, sin sorpresas.</h2>
             </div>
-            <p class="m-lead">
+            <p class="m-lead" data-i18n="proc.lead">
               Así es trabajar conmigo, de la primera conversación a la entrega.
               Sin reuniones que no llevan a nada.
             </p>
@@ -222,23 +229,23 @@
           <ol class="m-steps">
             <li class="m-step">
               <span class="m-step-n">01</span>
-              <h3>Hablamos</h3>
-              <p>Me cuentas qué necesitas y para cuándo. Te digo si se puede, cómo lo haría y qué hace falta.</p>
+              <h3 data-i18n="proc.s1t">Hablamos</h3>
+              <p data-i18n="proc.s1p">Me cuentas qué necesitas y para cuándo. Te digo si se puede, cómo lo haría y qué hace falta.</p>
             </li>
             <li class="m-step">
               <span class="m-step-n">02</span>
-              <h3>Propuesta</h3>
-              <p>Qué incluye, cuánto cuesta y qué necesito de ti. Todo por escrito antes de empezar.</p>
+              <h3 data-i18n="proc.s2t">Propuesta</h3>
+              <p data-i18n="proc.s2p">Qué incluye, cuánto cuesta y qué necesito de ti. Todo por escrito antes de empezar.</p>
             </li>
             <li class="m-step">
               <span class="m-step-n">03</span>
-              <h3>Desarrollo</h3>
-              <p>Entregas parciales para que lo veas funcionar desde el principio y corrijamos a tiempo.</p>
+              <h3 data-i18n="proc.s3t">Desarrollo</h3>
+              <p data-i18n="proc.s3p">Entregas parciales para que lo veas funcionar desde el principio y corrijamos a tiempo.</p>
             </li>
             <li class="m-step">
               <span class="m-step-n">04</span>
-              <h3>Entrega y soporte</h3>
-              <p>Publicado o instalado, con manual. Y cambios después, cuando los necesites.</p>
+              <h3 data-i18n="proc.s4t">Entrega y soporte</h3>
+              <p data-i18n="proc.s4p">Publicado o instalado, con manual. Y cambios después, cuando los necesites.</p>
             </li>
           </ol>
         </div>
@@ -249,33 +256,33 @@
         <div class="m-wrap">
           <div class="m-about">
             <div class="m-about-copy">
-              <p class="m-kicker">[ Sobre mí ]</p>
-              <h2>Quién escribe el código.</h2>
+              <p class="m-kicker" data-i18n="about.kicker">[ Sobre mí ]</p>
+              <h2 data-i18n="about.h2">Quién escribe el código.</h2>
               <div class="panel m-bio">
                 <p id="mBio"></p>
-                <p class="m-quote">«No soy “vibe coding”: escribo y entiendo cada línea de mi código.»</p>
+                <p class="m-quote" data-i18n="about.quote">«No soy “vibe coding”: escribo y entiendo cada línea de mi código.»</p>
               </div>
               <div class="m-cta-row">
-                <a class="btn-outline m-btn-lg" id="mCv" href="assets/CV.pdf" target="_blank" rel="noopener">Descargar CV (PDF)</a>
+                <a class="btn-outline m-btn-lg" id="mCv" href="assets/CV.pdf" target="_blank" rel="noopener" data-i18n="about.cv">Descargar CV (PDF)</a>
               </div>
             </div>
 
             <div class="m-about-side">
               <dl class="m-ficha">
-                <div><dt>Ubicación</dt><dd>Salamanca, España · trabajo en remoto</dd></div>
-                <div><dt>Formación</dt><dd>Ingeniero de Sistemas · UNEFA (2015)</dd></div>
-                <div><dt>Idiomas</dt><dd>Español (nativo) · Inglés (B2)</dd></div>
+                <div><dt data-i18n="about.loc">Ubicación</dt><dd data-i18n="about.locv">Salamanca, España · trabajo en remoto</dd></div>
+                <div><dt data-i18n="about.edu">Formación</dt><dd data-i18n="about.eduv">Ingeniero de Sistemas · UNEFA (2015)</dd></div>
+                <div><dt data-i18n="about.langs">Idiomas</dt><dd data-i18n="about.langsv">Español (nativo) · Inglés (B2)</dd></div>
                 <div>
-                  <dt>Certificaciones</dt>
-                  <dd>Montaje y mantenimiento de sistemas microinformáticos (IFCT0108, 370 h) · ECI Diploma · Desarrollo con IA (MourDev)</dd>
+                  <dt data-i18n="about.certs">Certificaciones</dt>
+                  <dd data-i18n="about.certsv">Montaje y mantenimiento de sistemas microinformáticos (IFCT0108, 370 h) · ECI Diploma · Desarrollo con IA (MourDev)</dd>
                 </div>
-                <div><dt>Disponibilidad</dt><dd>Proyectos nuevos · respuesta en 24 h</dd></div>
+                <div><dt data-i18n="about.avail">Disponibilidad</dt><dd data-i18n="about.availv">Proyectos nuevos · respuesta en 24 h</dd></div>
               </dl>
             </div>
           </div>
 
           <div class="m-tech-block">
-            <h3 class="m-sub">Tecnologías con las que trabajo</h3>
+            <h3 class="m-sub" data-i18n="about.tech">Tecnologías con las que trabajo</h3>
             <div class="panel m-tech-panel">
               <div id="mTech" class="m-tech-grid"></div>
             </div>
@@ -287,20 +294,20 @@
       <section class="m-section m-contact" id="contacto">
         <div class="m-wrap m-contact-grid">
           <div class="m-contact-copy">
-            <p class="m-kicker">[ Contacto ]</p>
-            <h2>Cuéntame qué necesitas.</h2>
-            <p class="m-lead">
+            <p class="m-kicker" data-i18n="contact.kicker">[ Contacto ]</p>
+            <h2 data-i18n="contact.h2">Cuéntame qué necesitas.</h2>
+            <p class="m-lead" data-i18n="contact.lead">
               Escríbeme y te contesto en menos de 24 horas con una primera idea
               y un precio orientativo, sin compromiso.
             </p>
 
             <ul class="m-contact-list">
-              <li><span>Correo</span><a id="mEmail" href="#">—</a></li>
+              <li><span data-i18n="contact.email">Correo</span><a id="mEmail" href="#">—</a></li>
               <li><span>GitHub</span><a id="mGithub" href="#" target="_blank" rel="noopener">—</a></li>
               <li><span>LinkedIn</span><a id="mLinkedin" href="#" target="_blank" rel="noopener">—</a></li>
             </ul>
 
-            <p class="m-note">
+            <p class="m-note" data-i18n="contact.note">
               Sin formularios que se pierden: el formulario abre tu correo con el
               mensaje ya escrito, así sabes exactamente qué me llega.
             </p>
@@ -308,28 +315,28 @@
 
           <form class="m-form panel" id="mForm" novalidate>
             <div class="m-field">
-              <label for="fNombre">Tu nombre</label>
+              <label for="fNombre" data-i18n="form.name">Tu nombre</label>
               <input id="fNombre" name="nombre" type="text" autocomplete="name" required />
             </div>
             <div class="m-field">
-              <label for="fEmail">Tu correo</label>
+              <label for="fEmail" data-i18n="form.email">Tu correo</label>
               <input id="fEmail" name="email" type="email" autocomplete="email" required />
             </div>
             <div class="m-field">
-              <label for="fTipo">Qué necesitas</label>
+              <label for="fTipo" data-i18n="form.type">Qué necesitas</label>
               <select id="fTipo" name="tipo">
-                <option>Una web para mi negocio</option>
-                <option>Software de gestión</option>
-                <option>Una aplicación de escritorio</option>
-                <option>Un juego HTML5</option>
-                <option>Otra cosa</option>
+                <option data-i18n="form.opt1">Una web para mi negocio</option>
+                <option data-i18n="form.opt2">Software de gestión</option>
+                <option data-i18n="form.opt3">Una aplicación de escritorio</option>
+                <option data-i18n="form.opt4">Un juego HTML5</option>
+                <option data-i18n="form.opt5">Otra cosa</option>
               </select>
             </div>
             <div class="m-field">
-              <label for="fMsg">Cuéntame el proyecto</label>
-              <textarea id="fMsg" name="mensaje" rows="5" required placeholder="Qué quieres conseguir, para cuándo y si ya tienes algo hecho."></textarea>
+              <label for="fMsg" data-i18n="form.msg">Cuéntame el proyecto</label>
+              <textarea id="fMsg" name="mensaje" rows="5" required data-i18n-placeholder="form.msgPh" placeholder="Qué quieres conseguir, para cuándo y si ya tienes algo hecho."></textarea>
             </div>
-            <button class="btn m-btn-lg" type="submit">Enviar por correo</button>
+            <button class="btn m-btn-lg" type="submit" data-i18n="form.send">Enviar por correo</button>
             <p class="m-form-note" id="mFormNote" role="status"></p>
           </form>
         </div>
@@ -338,19 +345,21 @@
 
     <footer class="m-footer">
       <div class="m-wrap m-footer-inner">
-        <p class="m-footer-name"><span id="mFooterName">Angel Valecillos</span> · Programador Java y web · Salamanca</p>
-        <nav class="m-footer-links" aria-label="Enlaces de contacto">
-          <a id="mFooterEmail" href="#">Correo</a>
+        <p class="m-footer-name"><span id="mFooterName">Angel Valecillos</span> · <span data-i18n="footer.line">Programador Java y web · Salamanca</span></p>
+        <nav class="m-footer-links" data-i18n-aria="footer.linksAria" aria-label="Enlaces de contacto">
+          <a id="mFooterEmail" href="#" data-i18n="footer.email">Correo</a>
           <a id="mFooterGithub" href="#" target="_blank" rel="noopener">GitHub</a>
           <a id="mFooterLinkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
-          <a id="mFooterCv" href="assets/CV.pdf" target="_blank" rel="noopener">CV</a>
+          <a id="mFooterCv" href="assets/CV.pdf" target="_blank" rel="noopener" data-i18n="footer.cv">CV</a>
         </nav>
-        <p class="m-footer-fine">© <span id="mYear">2026</span> · Hecho a mano, sin plantillas.</p>
+        <p class="m-footer-fine">© <span id="mYear">2026</span> · <span data-i18n="footer.fine">Hecho a mano, sin plantillas.</span></p>
       </div>
     </footer>
 
     <script src="matrix.js"></script>
     <script src="content.js"></script>
+    <script src="content.en.js"></script>
+    <script src="i18n.js"></script>
     <script src="modelo.js"></script>
   </body>
 </html>

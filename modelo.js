@@ -1,16 +1,25 @@
 /* ==========================================================================
    MODELO 2026-10-22 — lógica de la web de contratación
-   Pinta las secciones desde content.js (mismos datos que el portafolio) y
-   añade lo nuevo: menú de especialidades, filtros de proyectos y formulario.
+   Pinta las secciones desde content.js / content.en.js (mismos datos que el
+   portafolio) y añade lo nuevo: menú de especialidades, filtros de proyectos,
+   formulario y traductor en vivo.
+
+   El idioma vive en i18n.js. Aquí sólo se pregunta con t("clave") y se vuelve
+   a pintar todo cuando llega el evento "langchange"; los listeners de los
+   contenedores se enganchan una sola vez para no duplicarse.
    ========================================================================== */
 (function () {
   const d = document;
   const root = d.documentElement;
-  const data = window.portfolioData;
-  if (!data) return;
+  if (!window.portfolioData) return;
 
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const el = (id) => d.getElementById(id);
+  const t = (key, vars) => (typeof window.t === "function" ? window.t(key, vars) : key);
+  const lang = () => (typeof window.getLang === "function" ? window.getLang() : "es");
+  const DATA = () =>
+    lang() === "en" && window.portfolioDataEN ? window.portfolioDataEN : window.portfolioData;
+  const externo = (url) => /^https?:/i.test(url || "");
 
   /* ---------- Tema claro / oscuro ---------- */
   if (localStorage.getItem("theme") === "light") root.classList.add("light");
@@ -21,27 +30,13 @@
   });
 
   /* ---------- Etiquetas ---------- */
-  const CATS = [
-    { id: "todos", label: "Todos" },
-    { id: "web", label: "Web" },
-    { id: "gestion", label: "Gestión" },
-    { id: "escritorio", label: "Escritorio" },
-    { id: "juegos", label: "Juegos" }
-  ];
-  const TECH_LABEL = {
-    "Backend/frontend": "Java y backend",
-    Backend: "Backend",
-    Desktop: "Escritorio",
-    DB: "Bases de datos",
-    Build: "Compilación",
-    Deploy: "Despliegue",
-    Web: "Web",
-    Tools: "Herramientas"
-  };
+  const CATS = ["todos", "web", "gestion", "escritorio", "juegos"];
+  const catLabel = (id) => (id === "todos" ? t("cat.all") : t("cat." + id));
+
   // Igual que en el portafolio: demoLabel manda; si no, .pdf = manual.
   const etiquetaDemo = (item) =>
     item.demoLabel ||
-    (item.demoUrl && item.demoUrl.toLowerCase().endsWith(".pdf") ? "Ver manual" : "Ver sitio");
+    (item.demoUrl && item.demoUrl.toLowerCase().endsWith(".pdf") ? t("proj.manual") : t("proj.site"));
 
   const ICONS = {
     web:
@@ -54,16 +49,50 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.6" y="7" width="18.8" height="10" rx="5"/><path d="M7 10v4M5 12h4"/><circle cx="15.8" cy="11" r=".9" fill="currentColor" stroke="none"/><circle cx="18" cy="13.2" r=".9" fill="currentColor" stroke="none"/></svg>'
   };
 
-  /* ---------- Hero ---------- */
-  const heroName = el("mHeroName");
-  if (heroName) heroName.textContent = data.name;
-
+  /* ---------- Elementos ---------- */
   const photo = el("photo");
   const photoAlt = el("photoAlt");
-  if (photo && data.photoUrl) photo.src = data.photoUrl;
+  const drop = el("mDrop");
+  const dropBtn = el("mDropBtn");
+  const mega = el("megaEsp");
+  const servGrid = el("mServGrid");
+  const extraServ = el("mExtraServ");
+  const filters = el("mFilters");
+  const grid = el("mProjGrid");
+  const count = el("mCount");
+  const bio = el("mBio");
+  const techBox = el("mTech");
+  const cv = el("mCv");
+  const form = el("mForm");
+
+  let current = "todos";
+  let services = [];
+  let all = [];
+
+  /* ---------- Datos según el idioma ---------- */
+  const buildData = () => {
+    const data = DATA();
+    services = data.services || [];
+    // Se juntan terminados y en marcha en una lista ordenada por `rank`
+    // (1 = primero). `category` decide el filtro.
+    all = [
+      ...(data.projects || []).map((p) => ({ ...p, category: p.category || "escritorio" })),
+      ...(data.experience || []).map((e) => ({ ...e, category: e.category || "web" }))
+    ].sort((a, b) => (a.rank || 99) - (b.rank || 99));
+    return data;
+  };
+
+  /* ---------- Hero ---------- */
+  const pintarHero = (data) => {
+    const heroName = el("mHeroName");
+    if (heroName) heroName.textContent = data.name;
+    if (photo && data.photoUrl) photo.src = data.photoUrl;
+  };
 
   // Segunda foto del avatar: fundido cada X segundos (igual que el portafolio).
-  if (photoAlt && data.photoUrl2) {
+  const montarAvatar = () => {
+    const data = DATA();
+    if (!photoAlt || !data.photoUrl2) return;
     photoAlt.src = data.photoUrl2;
     const ms = Number(data.photoIntervalMs) > 999 ? Number(data.photoIntervalMs) : 7000;
     if (reduce) photoAlt.classList.add("no-fade");
@@ -79,15 +108,11 @@
     };
     start();
     d.addEventListener("visibilitychange", () => (d.hidden ? stop() : start()));
-  }
+  };
 
   /* ---------- Menú de especialidades ---------- */
-  const drop = el("mDrop");
-  const dropBtn = el("mDropBtn");
-  const mega = el("megaEsp");
-  const services = data.services || [];
-
-  if (mega && services.length) {
+  const pintarMega = () => {
+    if (!mega || !services.length) return;
     mega.innerHTML =
       services
         .map(
@@ -100,16 +125,18 @@
         )
         .join("") +
       `<div class="m-mega-foot">
-         <a class="m-link" href="#especialidades">Ver todas las especialidades →</a>
-         <a class="btn" href="#contacto">Hablemos</a>
+         <a class="m-link" href="#especialidades">${t("spec.all")}</a>
+         <a class="btn" href="#contacto">${t("nav.cta")}</a>
        </div>`;
-  }
+  };
 
   const openDrop = () => {
+    if (!drop || !dropBtn) return;
     drop.classList.add("is-open");
     dropBtn.setAttribute("aria-expanded", "true");
   };
   const closeDrop = () => {
+    if (!drop || !dropBtn) return;
     drop.classList.remove("is-open");
     dropBtn.setAttribute("aria-expanded", "false");
   };
@@ -144,14 +171,14 @@
     if (!navLinks) return;
     navLinks.classList.remove("is-open");
     burger.setAttribute("aria-expanded", "false");
-    burger.setAttribute("aria-label", "Abrir menú");
+    burger.setAttribute("aria-label", t("burger.open"));
   };
 
   if (burger && navLinks) {
     burger.addEventListener("click", () => {
       const open = navLinks.classList.toggle("is-open");
       burger.setAttribute("aria-expanded", String(open));
-      burger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+      burger.setAttribute("aria-label", open ? t("burger.close") : t("burger.open"));
     });
     navLinks.addEventListener("click", (e) => {
       if (e.target.closest("a")) closeNav();
@@ -171,11 +198,11 @@
   });
 
   /* ---------- Especialidades ---------- */
-  const servGrid = el("mServGrid");
-  if (servGrid) {
-    servGrid.innerHTML = services
-      .map(
-        (s, i) => `
+  const pintarServicios = () => {
+    if (servGrid) {
+      servGrid.innerHTML = services
+        .map(
+          (s, i) => `
       <article class="m-serv">
         <div class="m-serv-top">
           <span class="m-serv-num">0${i + 1}</span>
@@ -184,65 +211,71 @@
         <h3>${s.title}</h3>
         <p>${s.description}</p>
         <ul class="m-serv-list">${(s.items || []).map((x) => `<li>${x}</li>`).join("")}</ul>
-        <a class="m-link" href="#proyectos" data-jump="${s.anchor}">Ver ejemplos →</a>
+        <a class="m-link" href="#proyectos" data-jump="${s.anchor}">${t("spec.examples")}</a>
       </article>`
-      )
-      .join("");
-  }
+        )
+        .join("");
+    }
 
-  const extraServ = el("mExtraServ");
-  if (extraServ && data.serviceExtras) {
-    extraServ.innerHTML = data.serviceExtras.map((x) => `<li><span class="badge">${x}</span></li>`).join("");
-  }
+    const data = DATA();
+    if (extraServ && data.serviceExtras) {
+      extraServ.innerHTML = data.serviceExtras
+        .map((x) => `<li><span class="badge">${x}</span></li>`)
+        .join("");
+    }
+  };
 
   /* ---------- Proyectos clasificados ---------- */
-  // Se juntan los terminados y los que están en desarrollo en una sola lista
-  // ordenada por `rank` (1 = primero). `category` decide el filtro.
-  const all = [
-    ...(data.projects || []).map((p) => ({ ...p, category: p.category || "escritorio" })),
-    ...(data.experience || []).map((e) => ({ ...e, category: e.category || "web" }))
-  ].sort((a, b) => (a.rank || 99) - (b.rank || 99));
-
-  const filters = el("mFilters");
-  const grid = el("mProjGrid");
-  const count = el("mCount");
-  let current = "todos";
-
   const statusClass = (s) => {
-    const t = (s || "").toLowerCase();
-    if (t.includes("desarrollo")) return "status-wip";
-    if (t.includes("terminado")) return "status-ok";
+    const v = (s || "").toLowerCase();
+    if (v.includes("desarrollo") || v.includes("progress")) return "status-wip";
+    if (v.includes("terminado") || v.includes("done")) return "status-ok";
     return "status-info";
   };
 
   const renderProjects = (filter) => {
+    if (!grid) return;
     const list = filter === "todos" ? all : all.filter((p) => p.category === filter);
 
     grid.innerHTML = list
       .map((p) => {
         const img = p.imageUrl || (Array.isArray(p.images) ? p.images[0] : "");
-        const catLabel = (CATS.find((c) => c.id === p.category) || {}).label || p.category;
-        const status = p.status ? `<span class="status ${statusClass(p.status)}">${p.status}</span>` : "";
-        const tags = (p.tech || []).slice(0, 4).map((t) => `<span class="m-tag">${t}</span>`).join("");
+        const catLabelTxt = CATS.includes(p.category) ? catLabel(p.category) : p.category;
+        const status = p.status
+          ? `<span class="status ${statusClass(p.status)}">${p.status}</span>`
+          : "";
+        const tags = (p.tech || []).slice(0, 4).map((x) => `<span class="m-tag">${x}</span>`).join("");
         const demo = p.demoUrl
-          ? `<a class="btn-outline" href="${p.demoUrl}" target="_blank" rel="noopener">${etiquetaDemo(p)}</a>`
+          ? `<a class="btn-outline" href="${p.demoUrl}"${
+              externo(p.demoUrl) ? ' target="_blank" rel="noopener"' : ""
+            }>${etiquetaDemo(p)}</a>`
           : "";
         // Todas las fichas llevan a la vez al formulario de contacto.
-        const pedir = `<a class="btn" href="#contacto" data-demo="${p.title}" data-cat="${p.category}">Pedir demo</a>`;
+        const pedir = `<a class="btn" href="#contacto" data-demo="${p.title}" data-cat="${p.category}">${t(
+          "proj.demo"
+        )}</a>`;
         const link = p.demoUrl;
         const mediaClass = "m-proj-media" + (p.imageFit === "contain" ? " is-contain" : "");
+        const alt = t("proj.imgAlt", { title: p.title });
         const media = img
-          ? `<img src="${img}" alt="Captura de ${p.title}" loading="lazy" />`
-          : `<span class="m-proj-noimg"><small>Sin captura todavía</small><strong>${p.title}</strong></span>`;
+          ? `<img src="${img}" alt="${alt}" loading="lazy" />`
+          : `<span class="m-proj-noimg"><small>${t("proj.noimg")}</small><strong>${p.title}</strong></span>`;
 
         // Con vídeo, la captura abre el reproductor; el juego sigue en los botones.
         const badge = p.videoUrl
-          ? `<span class="m-play"><span class="m-play-ico" aria-hidden="true">▶</span>${p.videoLabel || "Ver vídeo"}</span>`
+          ? `<span class="m-play"><span class="m-play-ico" aria-hidden="true">▶</span>${p.videoLabel || "▶"}</span>`
           : "";
         const mediaBlock = p.videoUrl
-          ? `<button type="button" class="${mediaClass} is-video" data-video="${p.videoUrl}" data-poster="${p.videoPoster || ""}" data-video-title="${p.title}" aria-label="Ver el vídeo de ${p.title}">${media}${badge}</button>`
+          ? `<button type="button" class="${mediaClass} is-video" data-video="${p.videoUrl}" data-poster="${p.videoPoster || ""}" data-video-title="${p.title}" aria-label="${t(
+              "proj.videoAria",
+              { title: p.title }
+            )}">${media}${badge}</button>`
           : link
-            ? `<a class="${mediaClass}" href="${link}" target="_blank" rel="noopener" aria-label="${p.title} (se abre en otra pestaña)">${media}</a>`
+            ? `<a class="${mediaClass}" href="${link}"${
+                externo(link) ? ' target="_blank" rel="noopener"' : ""
+              } aria-label="${
+                externo(link) ? t("proj.newtab", { title: p.title }) : p.title
+              }">${media}</a>`
             : `<div class="${mediaClass}">${media}</div>`;
 
         return `
@@ -250,7 +283,7 @@
           ${mediaBlock}
           <div class="m-proj-body">
             <div class="m-proj-meta">
-              <span class="m-cat">${catLabel}</span>
+              <span class="m-cat">${catLabelTxt}</span>
               ${status}
             </div>
             <h3>${p.title}</h3>
@@ -263,33 +296,43 @@
       .join("");
 
     if (count) {
-      count.textContent = `${list.length} ${list.length === 1 ? "proyecto" : "proyectos"}`;
+      count.textContent = `${list.length} ${list.length === 1 ? t("proj.countOne") : t("proj.countMany")}`;
     }
   };
 
   const setFilter = (id) => {
-    if (!CATS.some((c) => c.id === id)) id = "todos";
+    if (!CATS.includes(id)) id = "todos";
     current = id;
-    Array.from(filters.children).forEach((b) => {
-      const on = b.dataset.filter === id;
-      b.classList.toggle("is-active", on);
-      b.setAttribute("aria-pressed", String(on));
-    });
+    if (filters) {
+      Array.from(filters.children).forEach((b) => {
+        const on = b.dataset.filter === id;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-pressed", String(on));
+      });
+    }
     renderProjects(id);
   };
 
-  if (filters && grid) {
-    filters.innerHTML = CATS.map((c) => {
-      const n = c.id === "todos" ? all.length : all.filter((p) => p.category === c.id).length;
-      return `<button type="button" class="m-filter${c.id === "todos" ? " is-active" : ""}" data-filter="${c.id}" aria-pressed="${c.id === "todos"}">${c.label} <span>${n}</span></button>`;
+  const pintarFiltros = () => {
+    if (!filters || !grid) return;
+    if (!CATS.includes(current)) current = "todos";
+
+    filters.innerHTML = CATS.map((id) => {
+      const n = id === "todos" ? all.length : all.filter((p) => p.category === id).length;
+      const on = id === current;
+      return `<button type="button" class="m-filter${on ? " is-active" : ""}" data-filter="${id}" aria-pressed="${on}">${catLabel(
+        id
+      )} <span>${n}</span></button>`;
     }).join("");
 
+    renderProjects(current);
+  };
+
+  if (filters) {
     filters.addEventListener("click", (e) => {
       const btn = e.target.closest("[data-filter]");
       if (btn) setFilter(btn.dataset.filter);
     });
-
-    renderProjects(current);
   }
 
   // "Ver ejemplos →" de cada especialidad: filtra y baja a los proyectos.
@@ -305,9 +348,10 @@
   }
 
   // "Pedir demo": baja al formulario, marca el tipo de proyecto y escribe el mensaje.
-  if (grid) {
-    const ORDEN_TIPO = { web: 0, gestion: 1, escritorio: 2, juegos: 3 };
+  const ORDEN_TIPO = { web: 0, gestion: 1, escritorio: 2, juegos: 3 };
+  let mensajeDemo = "";
 
+  if (grid) {
     grid.addEventListener("click", (e) => {
       const a = e.target.closest("a[data-demo]");
       if (!a) return;
@@ -319,8 +363,10 @@
 
       if (msg) {
         const texto = msg.value.trim();
-        if (!texto || /^Me interesa una demo de/.test(texto)) {
-          msg.value = `Me interesa una demo de «${a.dataset.demo}».`;
+        // Sólo se sustituye si está vacío o sigue siendo el mensaje automático.
+        if (!texto || texto === mensajeDemo) {
+          mensajeDemo = t("form.demoMsg", { title: a.dataset.demo });
+          msg.value = mensajeDemo;
         }
       }
 
@@ -343,12 +389,12 @@
   const montarVideo = () => {
     vDlg = document.createElement("dialog");
     vDlg.className = "m-video";
-    vDlg.setAttribute("aria-label", "Vídeo promocional");
+    vDlg.setAttribute("aria-label", t("video.aria"));
     vDlg.innerHTML = `
       <div class="m-video-box">
         <div class="m-video-frame">
           <video controls playsinline preload="none" width="1080" height="1920"></video>
-          <button type="button" class="m-video-x" aria-label="Cerrar el vídeo">✕</button>
+          <button type="button" class="m-video-x" aria-label="${t("video.close")}">✕</button>
         </div>
         <p class="m-video-cap"></p>
       </div>`;
@@ -391,45 +437,41 @@
   }
 
   /* ---------- Sobre mí ---------- */
-  const bio = el("mBio");
-  if (bio) {
-    bio.textContent =
-      "Soy programador Java y web, Ingeniero de Sistemas (UNEFA, 2015). Tengo proyectos de " +
-      "escritorio terminados con SQLite y PostgreSQL, y dos webs de clientes reales en producción. " +
-      "Trabajo con código claro, pruebas básicas y documentación breve, y entrego instalado o " +
-      "publicado según lo que necesites. Si algo no sé hacer, te lo digo antes de empezar.";
-  }
-
-  const cv = el("mCv");
-  if (cv) {
-    if (data.cvUrl) cv.href = data.cvUrl;
-    else cv.style.display = "none";
-  }
+  const pintarBio = () => {
+    if (bio) bio.textContent = t("about.bio");
+    if (cv) {
+      const data = DATA();
+      if (data.cvUrl) cv.href = data.cvUrl;
+      else cv.style.display = "none";
+    }
+  };
 
   // Tecnologías, agrupadas por tipo (como el resto de la página).
-  const techBox = el("mTech");
-  if (techBox && Array.isArray(data.tech)) {
+  const pintarTech = () => {
+    const data = DATA();
+    if (!techBox || !Array.isArray(data.tech)) return;
+
     const order = [];
     const groups = {};
-    data.tech.forEach((t) => {
-      const key = t.category || "Otros";
+    data.tech.forEach((item) => {
+      const key = item.category || "Otros";
       if (!groups[key]) {
         groups[key] = [];
         order.push(key);
       }
-      groups[key].push(t.label);
+      groups[key].push(item.label);
     });
 
     techBox.innerHTML = order
       .map(
         (key) => `
       <div class="m-tech-group">
-        <span class="m-tech-cat">${TECH_LABEL[key] || key}</span>
+        <span class="m-tech-cat">${t("tech." + key)}</span>
         <div class="m-chips">${groups[key].map((l) => `<span class="badge">${l}</span>`).join("")}</div>
       </div>`
       )
       .join("");
-  }
+  };
 
   /* ---------- Contacto ---------- */
   const setLink = (id, href, text) => {
@@ -443,25 +485,31 @@
     }
   };
 
-  if (data.email) {
-    setLink("mEmail", `mailto:${data.email}`, data.email);
-    setLink("mFooterEmail", `mailto:${data.email}`, "Correo");
-  }
-  if (data.github) {
-    const short = data.github.replace(/^https?:\/\//, "").replace(/\/$/, "");
-    setLink("mGithub", data.github, short);
-    setLink("mFooterGithub", data.github, "GitHub");
-  }
-  if (data.linkedin) {
-    const short = data.linkedin.replace(/^https?:\/\//, "").replace(/\/$/, "").replace(/\?.*$/, "");
-    setLink("mLinkedin", data.linkedin, short);
-    setLink("mFooterLinkedin", data.linkedin, "LinkedIn");
-  }
-  if (el("mFooterName")) el("mFooterName").textContent = data.name;
-  if (el("mFooterCv") && data.cvUrl) el("mFooterCv").href = data.cvUrl;
-  if (el("mYear")) el("mYear").textContent = String(new Date().getFullYear());
+  const pintarContacto = () => {
+    const data = DATA();
 
-  const form = el("mForm");
+    if (data.email) {
+      setLink("mEmail", `mailto:${data.email}`, data.email);
+      setLink("mFooterEmail", `mailto:${data.email}`, t("footer.email"));
+    }
+    if (data.github) {
+      const short = data.github.replace(/^https?:\/\//, "").replace(/\/$/, "");
+      setLink("mGithub", data.github, short);
+      setLink("mFooterGithub", data.github, "GitHub");
+    }
+    if (data.linkedin) {
+      const short = data.linkedin.replace(/^https?:\/\//, "").replace(/\/$/, "").replace(/\?.*$/, "");
+      setLink("mLinkedin", data.linkedin, short);
+      setLink("mFooterLinkedin", data.linkedin, "LinkedIn");
+    }
+    if (el("mFooterName")) el("mFooterName").textContent = data.name;
+    if (el("mFooterCv") && data.cvUrl) el("mFooterCv").href = data.cvUrl;
+    if (el("mYear")) el("mYear").textContent = String(new Date().getFullYear());
+
+    const note = el("mFormNote");
+    if (note) note.textContent = "";
+  };
+
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -469,51 +517,57 @@
 
       if (!form.checkValidity()) {
         form.reportValidity();
-        if (note) note.textContent = "Faltan datos: escribe tu nombre, tu correo y qué necesitas.";
+        if (note) note.textContent = t("form.missing");
         return;
       }
 
+      const data = DATA();
       const nombre = el("fNombre").value.trim();
       const correo = el("fEmail").value.trim();
       const tipo = el("fTipo").value;
       const msg = el("fMsg").value.trim();
 
-      const subject = `Proyecto: ${tipo} — ${nombre}`;
+      const subject = t("form.subject", { tipo, nombre });
       const body =
-        `Nombre: ${nombre}\n` +
-        `Correo: ${correo}\n` +
-        `Tipo de proyecto: ${tipo}\n\n` +
+        `${t("form.bodyName")}: ${nombre}\n` +
+        `${t("form.bodyEmail")}: ${correo}\n` +
+        `${t("form.bodyType")}: ${tipo}\n\n` +
         `${msg}\n`;
 
       window.location.href =
         `mailto:${data.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      if (note) {
-        note.textContent =
-          "Se ha abierto tu programa de correo con el mensaje escrito. Si no se abre, escríbeme a " +
-          data.email +
-          ".";
-      }
+      if (note) note.textContent = t("form.sent", { email: data.email });
     });
   }
+
   /* ---------- Prueba en vivo: traductor ----------
      Mismo mecanismo que la app de la iglesia: el endpoint público de Google
      Translate (sin clave) y las banderas dibujadas en SVG (Windows no tiene
-     emoji de banderas). El texto se envía a ese servicio y no se guarda. */
-  const DEMO = {
-    en: { nombre: "English", voz: "en-US" },
-    de: { nombre: "Deutsch", voz: "de-DE" },
-    ro: { nombre: "Română", voz: "ro-RO" },
-    pl: { nombre: "Polski", voz: "pl-PL" },
-    pt: { nombre: "Português", voz: "pt-BR" }
-  };
+     emoji de banderas). El texto se envía a ese servicio y no se guarda.
+     El idioma de origen sigue al de la web: español → inglés, y al revés. */
+  const IDIOMAS = [
+    { id: "en", nombre: "English", voz: "en-US" },
+    { id: "es", nombre: "Español", voz: "es-ES" },
+    { id: "de", nombre: "Deutsch", voz: "de-DE" },
+    { id: "ro", nombre: "Română", voz: "ro-RO" },
+    { id: "pl", nombre: "Polski", voz: "pl-PL" },
+    { id: "pt", nombre: "Português", voz: "pt-BR" }
+  ];
 
   const BANDERAS = {
-    en: '<svg viewBox="0 0 60 40" aria-hidden="true" focusable="false"><rect width="60" height="40" fill="#012169"/><path d="M0 0 60 40M60 0 0 40" stroke="#fff" stroke-width="9"/><path d="M0 0 60 40M60 0 0 40" stroke="#C8102E" stroke-width="4"/><path d="M30 0V40M0 20H60" stroke="#fff" stroke-width="13"/><path d="M30 0V40M0 20H60" stroke="#C8102E" stroke-width="7"/></svg>',
-    de: '<svg viewBox="0 0 60 40" aria-hidden="true" focusable="false"><rect width="60" height="14" fill="#000"/><rect y="13" width="60" height="14" fill="#DD0000"/><rect y="26" width="60" height="14" fill="#FFCE00"/></svg>',
-    ro: '<svg viewBox="0 0 60 40" aria-hidden="true" focusable="false"><rect width="20" height="40" fill="#002B7F"/><rect x="20" width="20" height="40" fill="#FCD116"/><rect x="40" width="20" height="40" fill="#CE1126"/></svg>',
-    pl: '<svg viewBox="0 0 60 40" aria-hidden="true" focusable="false"><rect width="60" height="20" fill="#fff"/><rect y="20" width="60" height="20" fill="#DC143C"/></svg>',
-    pt: '<svg viewBox="0 0 60 40" aria-hidden="true" focusable="false"><rect width="60" height="40" fill="#009C3B"/><path d="M30 4 57 20 30 36 3 20Z" fill="#FFDF00"/><circle cx="30" cy="20" r="9.5" fill="#002776"/><path d="M20.6 18.2c6-3 12.8-2.6 18.8.7-6 3.2-12.8 2.9-18.8-.7Z" fill="#fff"/></svg>'
+    en:
+      '<svg viewBox="0 0 60 40" aria-hidden="true" focusable="false"><rect width="60" height="40" fill="#012169"/><path d="M0 0 60 40M60 0 0 40" stroke="#fff" stroke-width="9"/><path d="M0 0 60 40M60 0 0 40" stroke="#C8102E" stroke-width="4"/><path d="M30 0V40M0 20H60" stroke="#fff" stroke-width="13"/><path d="M30 0V40M0 20H60" stroke="#C8102E" stroke-width="7"/></svg>',
+    es:
+      '<svg viewBox="0 0 60 40" aria-hidden="true" focusable="false"><rect width="60" height="40" fill="#AA151B"/><rect y="10" width="60" height="20" fill="#F1BF00"/><path d="M14 17h7v9h-7z" fill="#AA151B" opacity=".85"/><path d="M23 19h5v5h-5z" fill="#AA151B" opacity=".5"/></svg>',
+    de:
+      '<svg viewBox="0 0 60 40" aria-hidden="true" focusable="false"><rect width="60" height="14" fill="#000"/><rect y="13" width="60" height="14" fill="#DD0000"/><rect y="26" width="60" height="14" fill="#FFCE00"/></svg>',
+    ro:
+      '<svg viewBox="0 0 60 40" aria-hidden="true" focusable="false"><rect width="20" height="40" fill="#002B7F"/><rect x="20" width="20" height="40" fill="#FCD116"/><rect x="40" width="20" height="40" fill="#CE1126"/></svg>',
+    pl:
+      '<svg viewBox="0 0 60 40" aria-hidden="true" focusable="false"><rect width="60" height="20" fill="#fff"/><rect y="20" width="60" height="20" fill="#DC143C"/></svg>',
+    pt:
+      '<svg viewBox="0 0 60 40" aria-hidden="true" focusable="false"><rect width="60" height="40" fill="#009C3B"/><path d="M30 4 57 20 30 36 3 20Z" fill="#FFDF00"/><circle cx="30" cy="20" r="9.5" fill="#002776"/><path d="M20.6 18.2c6-3 12.8-2.6 18.8.7-6 3.2-12.8 2.9-18.8-.7Z" fill="#fff"/></svg>'
   };
 
   const dTexto = el("demoTexto");
@@ -526,17 +580,15 @@
   const dCopiar = el("demoCopiar");
 
   if (dTexto && dSalida && dLangs) {
+    let origen = "es";
     let idioma = "en";
     let temporizador = null;
     let peticion = null;
     let pedido = "";
+    let defaultActual = null;
 
-    dLangs.innerHTML = Object.keys(DEMO)
-      .map(
-        (k) =>
-          `<button type="button" class="m-lang" data-lang="${k}" aria-pressed="false">${BANDERAS[k]}${DEMO[k].nombre}</button>`
-      )
-      .join("");
+    const destinos = () => IDIOMAS.filter((x) => x.id !== origen);
+    const datosIdioma = (id) => IDIOMAS.find((x) => x.id === id) || IDIOMAS[0];
 
     const marcarIdioma = () => {
       Array.from(dLangs.children).forEach((b) => {
@@ -544,7 +596,7 @@
         b.classList.toggle("is-active", on);
         b.setAttribute("aria-pressed", on ? "true" : "false");
       });
-      if (dLangLabel) dLangLabel.textContent = DEMO[idioma].nombre;
+      if (dLangLabel) dLangLabel.textContent = datosIdioma(idioma).nombre;
     };
 
     const ponerEstado = (texto, error) => {
@@ -576,11 +628,12 @@
 
     const traducir = async () => {
       const original = dTexto.value.trim();
+      const desde = origen;
       pedido = original;
 
       if (!original) {
-        pintar("Escribe algo en español y lo verás aquí.", "espera");
-        ponerEstado("Listo para traducir");
+        pintar(t("try.waiting"), "espera");
+        ponerEstado(t("try.ready"));
         actualizar();
         return;
       }
@@ -589,13 +642,15 @@
       peticion = new AbortController();
       const senal = peticion.signal;
 
-      pintar("Traduciendo…", "espera");
-      ponerEstado("Traduciendo…");
+      pintar(t("try.translating"), "espera");
+      ponerEstado(t("try.translating"));
       actualizar();
 
       const destino = idioma === "pt" ? "pt-BR" : idioma;
       const url =
-        "https://translate.googleapis.com/translate_a/single?client=gtx&sl=es&tl=" +
+        "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" +
+        desde +
+        "&tl=" +
         destino +
         "&dt=t&q=" +
         encodeURIComponent(original);
@@ -606,19 +661,44 @@
         const datos = await res.json();
         if (pedido !== original) return;
         const texto = (datos[0] || [])
-          .map((t) => (t && t[0]) || "")
+          .map((trozo) => (trozo && trozo[0]) || "")
           .join("")
           .trim();
         if (!texto) throw new Error("Respuesta vacía");
         pintar(texto);
-        ponerEstado("Traducido en vivo");
+        ponerEstado(t("try.done"));
       } catch (err) {
         if (err && err.name === "AbortError") return;
         // Igual que en la app real: si el servicio falla, se queda el original.
         pintar(original, "error");
-        ponerEstado("No se pudo traducir ahora mismo", true);
+        ponerEstado(t("try.error"), true);
       }
       actualizar();
+    };
+
+    // Rehace las banderas y el texto de ejemplo cuando cambia el idioma.
+    const pintarDemo = () => {
+      origen = lang() === "en" ? "en" : "es";
+      const lista = destinos();
+      if (!lista.some((x) => x.id === idioma)) idioma = lista[0].id;
+
+      dLangs.innerHTML = lista
+        .map(
+          (x) =>
+            `<button type="button" class="m-lang" data-lang="${x.id}" aria-pressed="false">${BANDERAS[x.id]}${x.nombre}</button>`
+        )
+        .join("");
+      marcarIdioma();
+
+      const nuevo = t("try.defaultText");
+      const actual = dTexto.value.trim();
+      if (defaultActual === null || !actual || actual === defaultActual) dTexto.value = nuevo;
+      defaultActual = nuevo;
+
+      if (dCopiar) dCopiar.textContent = t("try.copy");
+      detenerVoz();
+      actualizar();
+      traducir();
     };
 
     dTexto.addEventListener("input", () => {
@@ -643,7 +723,7 @@
         if (!texto || dEscuchar.disabled || !("speechSynthesis" in window)) return;
         detenerVoz();
         const voz = new SpeechSynthesisUtterance(texto);
-        voz.lang = DEMO[idioma].voz;
+        voz.lang = datosIdioma(idioma).voz;
         voz.rate = 0.95;
         window.speechSynthesis.speak(voz);
       });
@@ -668,17 +748,32 @@
           } catch (e2) {}
           area.remove();
         }
-        const antes = dCopiar.textContent;
-        dCopiar.textContent = "Copiado";
+        dCopiar.textContent = t("try.copied");
         setTimeout(() => {
-          dCopiar.textContent = antes;
+          dCopiar.textContent = t("try.copy");
         }, 1600);
       });
     }
 
-    marcarIdioma();
-    actualizar();
-    // Se traduce al cargar: así el bloque ya está listo cuando el visitante llega.
-    traducir();
+    d.addEventListener("langchange", pintarDemo);
+    // Se pinta al cargar: así el bloque ya está listo cuando el visitante llega.
+    window.setTimeout(pintarDemo, 0);
   }
+
+  /* ---------- Pinta todo (y repinta al cambiar de idioma) ---------- */
+  const pintarTodo = () => {
+    const data = buildData();
+    pintarHero(data);
+    pintarMega();
+    pintarServicios();
+    pintarFiltros();
+    pintarBio();
+    pintarTech();
+    pintarContacto();
+  };
+
+  d.addEventListener("langchange", pintarTodo);
+
+  montarAvatar();
+  pintarTodo();
 })();

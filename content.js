@@ -244,8 +244,8 @@ window.portfolioData = {
         "Juego de mesa venezolano (2 zorros vs 20 gallinas) en HTML5 puro sin dependencias. 2 jugadores o contra IA, con apodos por bando, sonido, soplo, pantalla completa y reglas en pantalla. Funciona en PC y móvil, y está publicado en itch.io.",
       tech: ["HTML", "CSS", "JavaScript"],
       repoUrl: "https://github.com/angelvalecillos/zorro-y-la-gallina",
-      demoUrl: "https://valecillos.itch.io/el-zorro-y-la-gallina",
-      demoLabel: "Jugar",
+      demoUrl: "juego/",
+      demoLabel: "Jugar aquí",
       imageUrl: "assets/zorro.jpg",
       imageLayout: "scroll",
       // Vídeo promocional: no se descarga hasta que se pulsa la captura.
