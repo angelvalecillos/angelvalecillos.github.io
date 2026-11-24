@@ -61,6 +61,10 @@ window.portfolioDataEN = Object.assign({}, window.portfolioData, {
         "Application in progress built in Java that connects to a PostgreSQL server and checks and creates the required tables on start-up; it currently handles employees, stays and the check-in and check-out process, and will later add blocking dirty or out-of-service rooms, registering and charging guest services, and other features aimed at improving hotel operations. Working legacy version (hoteles24, Java+Swing+Ant) and a modern backend rewrite (HotelProyect: Java 24, Maven, HikariCP, jBCrypt, GUI pending).",
       years: "originally 2015, recovering the code 2025-2026",
       category: "gestion",
+      // Promo video: downloaded only when the poster is clicked.
+      videoUrl: "assets/promo-hotel.mp4",
+      videoPoster: "assets/promo-hotel-poster.jpg",
+      videoLabel: "Watch the video · 12 s",
       rank: 3,
       summary:
         "Full hotel management: employees, stays, check-in/check-out and rooms, on PostgreSQL.",
@@ -76,6 +80,10 @@ window.portfolioDataEN = Object.assign({}, window.portfolioData, {
         "MSN-style family chat room with login, sign-up and a dashboard. Front end complete in vanilla JS + Firebase; credentials and the public demo are still pending.",
       years: "2026 · family project",
       category: "web",
+      // Promo video: downloaded only when the poster is clicked.
+      videoUrl: "assets/promo-family.mp4",
+      videoPoster: "assets/promo-family-poster.jpg",
+      videoLabel: "Watch the video · 12 s",
       rank: 9,
       summary:
         "MSN-style family chat with login, sign-up and admin panel, in JavaScript and Firebase.",
