@@ -241,7 +241,7 @@ window.portfolioData = {
       subtitle: "Juego de mesa HTML5",
       status: "Terminado",
       description:
-        "Juego de mesa venezolano (2 zorros vs 20 gallinas) en HTML5 puro sin dependencias. 2 jugadores o contra IA, con apodos por bando, sonido, soplo, pantalla completa y reglas en pantalla. Funciona en PC y móvil, y está publicado en itch.io.",
+        "Juego de mesa venezolano (2 zorros vs 20 gallinas) en HTML5 puro sin dependencias. 2 jugadores o contra IA, con apodos por bando, sonido, soplo, pantalla completa y reglas en pantalla. Funciona en PC y móvil, está publicado en itch.io, tiene su propia página jugable dentro del portafolio y una variante preparada para portales con los SDK de Poki y CrazyGames.",
       tech: ["HTML", "CSS", "JavaScript"],
       repoUrl: "https://github.com/angelvalecillos/zorro-y-la-gallina",
       demoUrl: "juego/",
@@ -261,7 +261,7 @@ window.portfolioData = {
       subtitle: "Subtítulos y voz en vivo · 6 idiomas",
       status: "Terminado",
       description:
-        "App para el culto: el predicador habla y cada móvil lee y escucha la traducción en español, inglés, alemán, rumano, polaco o portugués de Brasil. Tres vistas (emisor, oyente y pantalla para OBS), glosario para no traducir nombres propios y sin cuotas: reconocimiento de voz del navegador, traductor público de Google y Firebase. En marcha con una iglesia real.",
+        "App para el culto: el predicador habla y cada móvil lee y escucha la traducción en español, inglés, alemán, rumano, polaco o portugués de Brasil. Tres vistas (emisor, oyente y pantalla para OBS), glosario para no traducir nombres propios, deshacer y PWA. El operador entra con cuenta y los oyentes leen sin registrarse; voz del navegador, traductor público de Google y Firebase sin cuotas. En marcha con una iglesia real.",
       tech: ["HTML", "CSS", "JavaScript", "Firebase", "Web Speech API"],
       demoUrl: "https://iglesia-traductor-fd5b8.web.app",
       demoLabel: "Abrir app",
@@ -292,6 +292,44 @@ window.portfolioData = {
       videoLabel: "Ver el vídeo · 12 s",
       rank: 10,
       summary: "Calculadora de escritorio con historial, para practicar estructura y eventos en Java."
+    },
+    {
+      title: "Gestor de Portafolio",
+      subtitle: "Java 25 + Swing · JSON local",
+      status: "Terminado",
+      description:
+        "Herramienta propia de escritorio para ordenar clientes, correos, teléfonos, documentos, proyectos, pagos y plataformas en un único archivo JSON. Altas, bajas y consultas, borrado en cascada y validación de campos. Se entrega con .exe generado con jpackage y guía del código en PDF. MVP funcional: sin base de datos ni control de versiones automático.",
+      tech: ["Java", "Swing", "jpackage", "JSON"],
+      imageUrl: "assets/gestor-portafolio.jpg",
+      demoUrl: "assets/guia-gestor.pdf",
+      demoLabel: "Ver guía",
+      category: "gestion",
+      rank: 11,
+      summary: "Organiza clientes, proyectos, pagos y accesos en un solo archivo, con .exe y guía del código."
+    },
+    {
+      title: "Dead City FPS",
+      subtitle: "Three.js + Rapier + Socket.io",
+      status: "En desarrollo",
+      description:
+        "Prototipo técnico de un FPS 3D multijugador de mundo abierto zombi: ciudad por sectores con carga dinámica, física Rapier en WASM, movimiento y disparos validados en servidor, zombis con IA, PvP, daño, headshots, muerte y reaparición. Cliente en Vite + TypeScript, servidor Node/Socket.io a 20 ticks/s y acceso con cuenta Firebase o invitado. v0.2.0: combate funcional; quedan loot, inventario, crafting y audio.",
+      tech: ["TypeScript", "Three.js", "Node.js", "Socket.io"],
+      imageUrl: "assets/dead-city-fps.jpg",
+      category: "juegos",
+      rank: 12,
+      summary: "FPS 3D multijugador con ciudad por sectores, física, zombis con IA y combate PvPvE validado en servidor."
+    },
+    {
+      title: "GRIME · calendario de regalos",
+      subtitle: "Web privada + Firebase",
+      status: "Terminado",
+      description:
+        "Calendario de adviento personalizado del 1 al 21 de diciembre con 21 regalos de texto, fotos, audio, vídeo y enlaces. Se abre con un código que nunca se envía: solo viaja su hash SHA-256, y las reglas de Firestore liberan cada día cuando llega su fecha. Incluye PWA, acróstico animado y reproducción de los regalos. Proyecto privado: su enlace no se publica para no estropear la sorpresa.",
+      tech: ["HTML", "CSS", "JavaScript", "Firebase"],
+      imageUrl: "assets/grime.jpg",
+      category: "web",
+      rank: 13,
+      summary: "Calendario privado de 21 regalos con código hash, desbloqueo por fecha, PWA y reglas en Firestore."
     }
   ],
 

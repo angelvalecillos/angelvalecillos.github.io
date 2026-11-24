@@ -182,7 +182,7 @@ window.portfolioDataEN = Object.assign({}, window.portfolioData, {
       subtitle: "HTML5 board game",
       status: "Done",
       description:
-        "Venezuelan board game (2 foxes vs 20 hens) in pure HTML5 with no dependencies. 2 players or against the AI, with team nicknames, sound, 'soplo', full screen and the rules on screen. Works on PC and mobile, and it is published on itch.io.",
+        "Venezuelan board game (2 foxes vs 20 hens) in pure HTML5 with no dependencies. 2 players or against the AI, with team nicknames, sound, 'soplo', full screen and the rules on screen. Works on PC and mobile, is published on itch.io, now has its own playable page inside the portfolio and a variant ready for portals with the Poki and CrazyGames SDKs.",
       tech: ["HTML", "CSS", "JavaScript"],
       repoUrl: "https://github.com/angelvalecillos/zorro-y-la-gallina",
       demoUrl: "juego/",
@@ -201,7 +201,7 @@ window.portfolioDataEN = Object.assign({}, window.portfolioData, {
       subtitle: "Live captions and voice · 6 languages",
       status: "Done",
       description:
-        "App for the service: the preacher speaks and every phone reads and listens to the translation in Spanish, English, German, Romanian, Polish or Brazilian Portuguese. Three views (speaker, listener and a screen for OBS), a glossary so proper names are not translated, and no fees: the browser's speech recognition, Google's public translator and Firebase. Running with a real church.",
+        "App for the service: the preacher speaks and every phone reads and listens to the translation in Spanish, English, German, Romanian, Polish or Brazilian Portuguese. Three views (speaker, listener and a screen for OBS), a glossary so proper names are not translated, undo and a PWA. The speaker signs in with an account and listeners need no registration; browser speech recognition, Google's public translator and Firebase with no fees. Running with a real church.",
       tech: ["HTML", "CSS", "JavaScript", "Firebase", "Web Speech API"],
       demoUrl: "https://iglesia-traductor-fd5b8.web.app",
       demoLabel: "Open app",
@@ -230,6 +230,44 @@ window.portfolioDataEN = Object.assign({}, window.portfolioData, {
       videoUrl: "assets/promo-calculadora.mp4",
       videoPoster: "assets/promo-calculadora-poster.jpg",
       videoLabel: "Watch the video · 12 s"
+    },
+    {
+      title: "Portfolio Manager",
+      subtitle: "Java 25 + Swing · local JSON",
+      status: "Done",
+      description:
+        "My own desktop tool to keep clients, emails, phone numbers, documents, projects, payments and hosting platforms in a single JSON file. Create, delete and search, cascading deletes and field validation. Shipped as a .exe made with jpackage, with a code guide in PDF. Working MVP: no database and no automatic version control.",
+      tech: ["Java", "Swing", "jpackage", "JSON"],
+      imageUrl: "assets/gestor-portafolio.jpg",
+      demoUrl: "assets/guia-gestor.pdf",
+      demoLabel: "View guide",
+      category: "gestion",
+      rank: 11,
+      summary: "Keeps clients, projects, payments and credentials in one file, with a Windows .exe and a code guide."
+    },
+    {
+      title: "Dead City FPS",
+      subtitle: "Three.js + Rapier + Socket.io",
+      status: "In progress",
+      description:
+        "Technical prototype of a multiplayer open-world zombie FPS: a city split into sectors loaded on demand, Rapier physics in WASM, server-validated movement and shooting, AI zombies, PvP, damage, headshots, death and respawn. Vite + TypeScript client, Node/Socket.io server at 20 ticks/s and Firebase account or guest login. v0.2.0: working combat; loot, inventory, crafting and audio are still to come.",
+      tech: ["TypeScript", "Three.js", "Node.js", "Socket.io"],
+      imageUrl: "assets/dead-city-fps.jpg",
+      category: "juegos",
+      rank: 12,
+      summary: "Multiplayer 3D FPS with a sector-based city, physics, AI zombies and server-authoritative PvPvE combat."
+    },
+    {
+      title: "GRIME · gift calendar",
+      subtitle: "Private web app + Firebase",
+      status: "Done",
+      description:
+        "A personal advent calendar from 1 to 21 December with 21 gifts of text, photos, audio, video and links. It opens with a code that is never sent: only its SHA-256 hash travels, and Firestore rules unlock each day when its date arrives. Includes a PWA, an animated acrostic and gift playback. Private project: its link is not published so the surprise stays intact.",
+      tech: ["HTML", "CSS", "JavaScript", "Firebase"],
+      imageUrl: "assets/grime.jpg",
+      category: "web",
+      rank: 13,
+      summary: "Private 21-gift calendar with a hashed code, date-based unlocks, a PWA and Firestore rules."
     }
   ],
 
